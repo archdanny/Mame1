@@ -26,7 +26,7 @@ public class SpelStat extends JPanel {
     public Level level;
 //    public Task task;
     private Timer timer;
-    Bazooka bazooka = new Bazooka();
+ 
    
 
     public SpelStat() {
@@ -45,7 +45,7 @@ public class SpelStat extends JPanel {
         label = new JLabel("0");
         add(label);
         label.setBounds(250, 10, 100, 30);
-        Klabel = new JLabel("Bazooka : " + Integer.toString(bazooka.kogels));
+        Klabel = new JLabel("Bazooka : 0");
         add(Klabel);
         Klabel.setBounds(350, 10, 100, 30);
         
@@ -89,6 +89,7 @@ public class SpelStat extends JPanel {
             level.herstarten();
 //            timer.cancel();
             label.setText("0");
+            Klabel.setText("Bazooka : 0");
             requestFocus();
             
 
