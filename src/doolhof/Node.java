@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class Node {
     int gCost;
-         int fCost;
-         int hCost;
+    int fCost;
+    int hCost;
          public Veld veld;
          Node parentNode;
          Node leftNode;

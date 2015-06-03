@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 public class Muur extends Item
 {
      
-     private boolean breekbaar;
+    private boolean breekbaar;
     
     public Muur()
     {

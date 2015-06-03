@@ -20,9 +20,7 @@ public class Level
     {
        spelstat = new SpelStat();
        spelstat.level = this;
-       grid = new Grid();
-       grid.makeLength();
-       grid.level = this;
+       grid = new Grid(this);
        grid.makeGrid();
        grid.makeGridVelden();
        grid.readGrid();
@@ -37,7 +35,7 @@ public class Level
     
     public void herstarten()
     {
-//        grid.leegGrid();
+
         grid.removeAll();
         grid.makeGrid();
         grid.makeGridVelden();

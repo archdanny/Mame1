@@ -30,7 +30,7 @@ public class Raket extends Item {
 
     
     private Veld veldCheck;
-    Direction direction;
+    private Direction direction;
     private JPanel panel;
     private TimerTask task;
     private  Timer timer;
@@ -126,7 +126,8 @@ public class Raket extends Item {
         setBounds(huidigeVeld.x * boxSize, huidigeVeld.y * boxSize , boxSize, boxSize);
         huidigeVeld = getVeldDirection();
         veldCheck = getVeldDirection();
-        repaint();
+        
+        this.repaint();
         panel.revalidate();
         panel.repaint();
         }

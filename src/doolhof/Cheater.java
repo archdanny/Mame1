@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 public class Cheater extends Item {
    
 //     public Task task;
-
+    private final int stappenMin = 20;
     
     public Cheater()
     {
@@ -29,19 +29,16 @@ public class Cheater extends Item {
     public void cheat(){
          Container panelContainer = this.getParent();
          Grid grid = (Grid)panelContainer;
-         SpelStat stat =grid.level.getSpelstat();
-         int cheat = 20;
-         stat.stappenTeller(cheat);
+         SpelStat stat =grid.getLevel().getSpelstat();
+         stat.stappenTeller(stappenMin);
          stat.repaint();
     }
     
     @Override
      public void paintComponent(Graphics g) 
         {
-            
             super.paintComponent(g);
-            
-                    Graphics2D g2d=(Graphics2D)g; 
+            Graphics2D g2d=(Graphics2D)g; 
             g2d.drawImage(image, 0, 0, boxSize, boxSize, null,this);
         }
      

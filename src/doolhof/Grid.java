@@ -10,14 +10,8 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Scanner;
 import javax.swing.JPanel;
-import sun.security.util.Resources;
 
 /**
  *
@@ -29,13 +23,15 @@ public class Grid extends JPanel
     private final int frameBreedte = 600;
     private int rows = 20;
     private int boxSize = 20;
-    private int colum = 20;
     public Veld gridVeld [][];
-    public Speler speler;
-    public Level level;
+    private Speler speler;
+    private Level level;
     
-    public Grid()
+    public Grid(Level _level)
     {
+       level = _level;
+       Color color = new Color(221, 210,197);
+       setBackground(color);
        speler = new Speler();
        add(speler);          
        speler.keys.speler = speler;
@@ -44,10 +40,24 @@ public class Grid extends JPanel
        requestFocus();
        requestFocusInWindow(true);
     }
-
-    public void makeLength()
+    
+    public Level getLevel()
     {
-            String  length = new String();
+        return level;
+    }
+
+    public int getRows()
+    {
+        return rows;
+    }
+    
+    public void makeGrid()
+    {
+        add(speler);
+        speler.resetSpeler();
+        setSize(frameHoogte, frameBreedte);
+        setLayout(null);
+           String  length = new String();
             File file;
             FileInputStream fis;
              try {
@@ -68,22 +78,7 @@ public class Grid extends JPanel
     }catch (Exception e) 
     {
         System.out.println(e);
-    }
-             
-        }
-    
-    public int getRows()
-    {
-        return rows;
-    }
-    
-    public void makeGrid()
-    {
-        add(speler);
-        speler.resetSpeler();
-        setSize(frameHoogte, frameBreedte);
-        setLayout(null);
-        //speler = null;
+    }      
     }
     
         public void makeGridVelden()
@@ -118,12 +113,8 @@ public class Grid extends JPanel
             }
         } 
         }
-        
-        public Speler getSpeler()
-        {
-            return speler;
-        }
-         public void readGrid()
+
+        public void readGrid()
         {
            String [] mapArray = new String[rows];
            File file;
@@ -181,6 +172,7 @@ public class Grid extends JPanel
                     gridVeld[i][j].item = help;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
+                    help.huidigeVeld = gridVeld[i][j];
                     help.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(help);
                 }
@@ -233,17 +225,6 @@ public class Grid extends JPanel
             Xposition = 0;
        }
  
-    }
-         
-          public void leegGrid()
-    {
-        for (int i = 1; i < rows -1; i++) 
-        {
-            for (int j = 1; j < rows -1; j++) 
-            { 
-                gridVeld[i][j].item = null;
-            }
-        }
     }
   
 }

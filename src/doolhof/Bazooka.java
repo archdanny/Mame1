@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  */
 public class Bazooka extends Item{
     
-    int kogels;
+    private int kogels;
     
     public Bazooka()
     {
@@ -41,20 +41,29 @@ public class Bazooka extends Item{
          Raket shoot = new Raket(d,veld,panel);
          kogels --;
          Grid grid = (Grid)panelContainer;
-         SpelStat stat = grid.level.getSpelstat();
+         SpelStat stat = grid.getLevel().getSpelstat();
          stat.aantalKogels(kogels);
          stat.repaint();
          }
-         
      }
      
      public void opgepakt()
      {
          Container panelContainer = this.getParent();
          Grid grid = (Grid)panelContainer;
-         SpelStat stat = grid.level.getSpelstat();
+         SpelStat stat = grid.getLevel().getSpelstat();
          kogels +=3;
          stat.aantalKogels(kogels);
+     }
+     
+     public int getKogels()
+     {
+        return kogels; 
+     }
+     
+     public void setKogels(int _kogels)
+     {
+         kogels = _kogels;
      }
      
     

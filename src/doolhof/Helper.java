@@ -7,11 +7,10 @@
 package doolhof;
 
 
-import java.awt.Color;
+
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,19 +26,18 @@ public class Helper extends Item{
     private TimerTask task;
     private  Timer timer;
     private int rotation;
-    public Grid grid;
-    public Node lastNode;
+    private Grid grid;
+    private Node lastNode;
     
       
     public Helper(Grid gridGet)
     {
-      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/diamond.png")).getImage();
-        task = new Task();
-        timer = new Timer();
-        rotation=90;
-        timer.schedule(task, 0, 200);
-       grid = gridGet;
-     
+      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/helper.png")).getImage();
+      task = new Task();
+      timer = new Timer();
+      rotation=90;
+      timer.schedule(task, 0, 200);
+      grid = gridGet;
     }
     
      @Override
@@ -73,20 +71,18 @@ public class Helper extends Item{
              }
             
             super.paintComponent(g);
-                g.drawImage(image, 0, 0, boxSize, boxSize, null, this);
-                 Graphics2D g2d=(Graphics2D)g; // Create a Java2D version of g.
+            Graphics2D g2d=(Graphics2D)g; // Create a Java2D version of g.
             g2d.translate(translateX, translateY); // Translate the center of our coordinates.
             g2d.rotate(Math.toRadians(rotation));  // Rotate the image by 1 radian.
             g2d.drawImage(image, 0, 0, boxSize, boxSize, null,this);
 
         }
      
-     public void Rotation()
+     private void Rotation()
      {
          if(rotation > 270)
          {
              rotation = 90;
-             
          }
          else
          {
@@ -97,7 +93,7 @@ public class Helper extends Item{
         
      
      
-     public class Task extends TimerTask {
+     private class Task extends TimerTask {
 
 
         @Override
@@ -111,7 +107,7 @@ public class Helper extends Item{
      public void GetLocation(Veld veld, JPanel panel)
      {
 
-        Node  playerPos= new Node(grid.speler.huidigeVeld);
+        Node  playerPos= new Node(huidigeVeld);
         Node current = null;
         Node target = null;
         Node [][] nodeList = new Node[grid.getRows()][grid.getRows()];
@@ -148,7 +144,7 @@ public class Helper extends Item{
             }
         } 
          
-         nodeList[grid.speler.huidigeVeld.y][grid.speler.huidigeVeld.x] = playerPos;
+         nodeList[huidigeVeld.y][huidigeVeld.x] = playerPos;
          current = playerPos;
          playerPos.upNode = nodeList[playerPos.veld.y -1][playerPos.veld.x];
          playerPos.downNode = nodeList[playerPos.veld.y+1][playerPos.veld.x];
@@ -206,7 +202,7 @@ public class Helper extends Item{
          setPath(lastNode);
      }
      
-     public void setPath(Node node)
+     private void setPath(Node node)
      {
          if(node.parentNode != null)
          {

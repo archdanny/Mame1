@@ -80,7 +80,7 @@ public class Speler extends Item implements Beweeg
      {
           Container panelContainer = this.getParent();
             Grid panel = (Grid)panelContainer;
-        SpelStat stat = panel.level.getSpelstat();
+        SpelStat stat = panel.getLevel().getSpelstat();
         direction = d;
         Veld veld = huidigeVeld.veldHash.get(direction);
         if(veld.item instanceof Muur == false)
@@ -169,7 +169,7 @@ public class Speler extends Item implements Beweeg
          {
             bazooka.afschieten(direction, huidigeVeld);
          }
-         if(bazooka.kogels == 0)
+         if(bazooka.getKogels() == 0)
          {
              resetSpeler();
          }
