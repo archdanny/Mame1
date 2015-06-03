@@ -50,20 +50,20 @@ public class Helper extends Item{
             if(rotation == 180)
              {
                  
-                translateX =30;
-                translateY =30;
+                translateX =boxSize;
+                translateY =boxSize;
              }
                if(rotation == 90)
              {
               
-                translateX =30;
+                translateX =boxSize;
                 translateY =0;
              }
               if(rotation == 270)
              {
              
                 translateX =0;
-                translateY =30;
+                translateY =boxSize;
              }
               if(rotation == 0)
              {
@@ -111,10 +111,10 @@ public class Helper extends Item{
      public void GetLocation(Veld veld, JPanel panel)
      {
 
-         Node  playerPos= new Node(grid.speler.huidigeVeld);
-         Node current = null;
-         Node target = null;
-         Node [][] nodeList = new Node[grid.getRows()][grid.getRows()];
+        Node  playerPos= new Node(grid.speler.huidigeVeld);
+        Node current = null;
+        Node target = null;
+        Node [][] nodeList = new Node[grid.getRows()][grid.getRows()];
         ArrayList<Node> listOpen = new ArrayList<>();
         ArrayList<Node> listClosed  = new ArrayList<>();
         
@@ -210,8 +210,7 @@ public class Helper extends Item{
      {
          if(node.parentNode != null)
          {
-            Item cheat = new Helper(grid);
-            cheat.boxSize = boxSize;
+            Item cheat = new Path();
             Container panelContainer = this.getParent();
             Grid grid = (Grid)panelContainer;
             cheat.setBounds(node.veld.x * boxSize, node.veld.y * boxSize, boxSize, boxSize);
@@ -222,89 +221,22 @@ public class Helper extends Item{
          }    
      }
      
-     public class Node
+     public class Path extends Item
      {
-         int gCost;
-         int fCost;
-         int hCost;
-         public Veld veld;
-         Node parentNode;
-         Node leftNode;
-         Node rightNode;
-         Node upNode;
-         Node downNode;
-         ArrayList<Node> nodeList;
-         
-         
-         public Node(Veld _veld)
+         public Path()
          {
-             veld = _veld;
-             gCost = -1;
-             fCost = -1;
-             hCost = -1;
-            
+         image = new  ImageIcon(getClass().getClassLoader().getResource("Images/path.png")).getImage();
          }
+          @Override
+     public void paintComponent(Graphics g) 
+        {
+            
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, boxSize, boxSize, null, this);
 
-         public int getHCost(Veld targetVeld)
-         {
-              if(hCost == -1 )
-             {
-            int curentX = Math.abs(targetVeld.x - veld.x);
-            int curentY = Math.abs(targetVeld.y - veld.y);
-            return curentX + curentY;
-             }
-               else
-             {
-                 return hCost;
-             }
-         }
-         
-            public int getGCost(Veld StartNode)
-         {
-             if(gCost == -1)
-             {
-            int curentX = Math.abs(StartNode.x - veld.x);
-            int curentY = Math.abs(StartNode.y - veld.y);
-            return curentX + curentY;
-             }
-             else
-             {
-                 return gCost;
-             }
-         }
-           public int getFCost(Veld StartNode , Veld targetVeld)
-         {
-             if(fCost == -1)
-             {
-            return getGCost(StartNode) + getHCost(targetVeld);
-             }
-              else
-             {
-                 return fCost;
-             }
-         }
-           
-            public int verschilBuur(Veld buur)
-         {
-            int curentX = Math.abs(buur.x - veld.x);
-            int curentY = Math.abs(buur.y - veld.y);
-            return curentX + curentY;
-         }
-            
-         public void makeList()
-         {
-            nodeList = new ArrayList<>();
-            nodeList.add(upNode);
-            nodeList.add(downNode);
-            nodeList.add(leftNode);
-            nodeList.add(rightNode);
-         }
-         
-         
+        }
      }
-     
-     
- 
+   
 }
     
 

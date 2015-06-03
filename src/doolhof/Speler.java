@@ -46,20 +46,20 @@ public class Speler extends Item implements Beweeg
              if(direction == Up)
              {
                 rotation = 180;
-                translateX =30;
+                translateX =boxSize;
                 translateY =30;
              }
                if(direction == Left)
              {
                 rotation = 90;
-                translateX =30;
+                translateX =boxSize;
                 translateY =0;
              }
               if(direction == Right)
              {
                  rotation = 270;
                 translateX =0;
-                translateY =30;
+                translateY =boxSize;
              }
               if(direction == Down)
              {
