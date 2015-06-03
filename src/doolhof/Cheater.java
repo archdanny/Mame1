@@ -15,15 +15,9 @@ import javax.swing.ImageIcon;
  * @author Mehmet
  */
 public class Cheater extends Item {
-    
-        private Veld huidigeVeld;
-     private ImageIcon imageGet;
-     private Image image;
-     private int boxSize = 30;
+   
      public Task task;
 
-
-     
     public void cheat(){
         int cheat = 20;
      task.countdown -= cheat;
