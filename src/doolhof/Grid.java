@@ -157,7 +157,6 @@ public class Grid extends JPanel
                  if(mapArray[i].substring(j, j+1).equals("b"))
                 {
                     Item b = new Muur(true);
-                    b.boxSize = boxSize;
                     gridVeld[i][j].item = b;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -168,7 +167,6 @@ public class Grid extends JPanel
                 if(mapArray[i].substring(j, j+1).equals("w"))
                 {
                     Item muur = new Muur();
-                    muur.boxSize = boxSize;
                     gridVeld[i][j].item = muur;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -181,7 +179,6 @@ public class Grid extends JPanel
                     Item help = new Helper(this);
                     
                     gridVeld[i][j].item = help;
-                     help.boxSize = boxSize;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
                     help.setBounds(Xposition, Yposition, boxSize, boxSize);
@@ -190,7 +187,6 @@ public class Grid extends JPanel
                   if(mapArray[i].substring(j, j+1).equals("v"))
                 {
                     Item vriend = new Vriend();
-                     vriend.boxSize = boxSize;
                     gridVeld[i][j].item = vriend;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -200,7 +196,6 @@ public class Grid extends JPanel
                   if(mapArray[i].substring(j, j+1).equals("B"))
                 {
                     Item bazooka = new Bazooka();
-                     bazooka.boxSize = boxSize;
                     gridVeld[i][j].item = bazooka;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -216,7 +211,6 @@ public class Grid extends JPanel
                     Cheater cheater = new Cheater();
                    
                     gridVeld[i][j].item = cheater;
-                     cheater.boxSize = boxSize;
                     //cheater.task = level.getSpelstat().task;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -227,7 +221,6 @@ public class Grid extends JPanel
                  if(mapArray[i].substring(j, j+1).equals("s"))
                  {
                     gridVeld[i][j].item = speler;
-                     speler.boxSize = boxSize;
                     speler.setBounds(Xposition, Yposition, boxSize, boxSize);
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
