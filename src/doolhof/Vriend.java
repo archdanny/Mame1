@@ -29,6 +29,6 @@ public class Vriend extends Item {
     public Vriend()
     {
         
-        image = new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage();
+        image = new  ImageIcon(getClass().getClassLoader().getResource("Images/vriend.png")).getImage();
     }
 }
