@@ -21,6 +21,7 @@ public class Level
        spelstat = new SpelStat();
        spelstat.level = this;
        grid = new Grid();
+       grid.makeLength();
        grid.level = this;
        grid.makeGrid();
        grid.makeGridVelden();

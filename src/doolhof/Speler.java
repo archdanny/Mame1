@@ -85,10 +85,10 @@ public class Speler extends Item implements Beweeg
         Veld veld = huidigeVeld.veldHash.get(direction);
         if(veld.item instanceof Muur == false)
             {
-            checkBazooka(veld.item);
-            checkVriend(veld.item);
+            checkBazooka(veld);
+            checkVriend(veld);
             checkHelper(veld);
-            checkBCheater(veld.item);
+            checkBCheater(veld);
             huidigeVeld =veld;
             setBounds(huidigeVeld.x * boxSize, huidigeVeld.y * boxSize, boxSize, boxSize);
             stat.stappenTeller(1);
@@ -96,9 +96,9 @@ public class Speler extends Item implements Beweeg
             repaint(); 
      }
      
-     public void checkVriend(Item item)
+     public void checkVriend(Veld veld)
      {
-         if(item instanceof Vriend)
+         if(veld.item instanceof Vriend)
          {
            Container panelContainer = this.getParent();
             JPanel panel = (JPanel)panelContainer;
@@ -120,16 +120,17 @@ public class Speler extends Item implements Beweeg
          }
      }
      
-     public void checkBazooka(Item item)
+     public void checkBazooka(Veld veld)
      {
-         if(item instanceof Bazooka)
+         if(veld.item instanceof Bazooka)
          {
-            bazooka = (Bazooka) item;
+            bazooka = (Bazooka) veld.item;
             bazooka.opgepakt();
             bazooka.huidigeVeld = huidigeVeld;
             image = new  ImageIcon(getClass().getClassLoader().getResource("Images/playerBazooka.png")).getImage();
             repaint();
-            item.setVisible(false);
+            veld.item.setVisible(false);
+            veld.item = null;
          }
          if(bazooka == null)
          {
@@ -138,15 +139,15 @@ public class Speler extends Item implements Beweeg
          }
      }
      
-      public void checkBCheater(Item item)
+      public void checkBCheater(Veld veld)
      {
-         if(item instanceof Cheater)
+         if(veld.item instanceof Cheater)
          {
-            Cheater cheater = (Cheater) item;
+            Cheater cheater = (Cheater) veld.item;
             cheater.cheat();          
             repaint();
-            item.setVisible(false);
-            item= null;
+            veld.item.setVisible(false);
+            veld.item= null;
          }
      }
       

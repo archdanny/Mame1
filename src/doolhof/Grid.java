@@ -27,8 +27,8 @@ public class Grid extends JPanel
 {
     private final int frameHoogte = 600;
     private final int frameBreedte = 600;
-    private int boxSize = frameHoogte/20;
     private int rows = 20;
+    private int boxSize = 20;
     private int colum = 20;
     public Veld gridVeld [][];
     public Speler speler;
@@ -45,6 +45,32 @@ public class Grid extends JPanel
        requestFocusInWindow(true);
     }
 
+    public void makeLength()
+    {
+            String  length = new String();
+            File file;
+            FileInputStream fis;
+             try {
+            file = new File(getClass().getClassLoader().getResource("Levels/levelUno.txt").getFile());
+           
+               fis = new FileInputStream(file);
+                
+                BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+
+               
+                      length = br.readLine();
+               
+                int i = length.length();
+
+                rows = i;
+               boxSize = frameHoogte/rows;
+    }catch (Exception e) 
+    {
+        System.out.println(e);
+    }
+             
+        }
+    
     public void makeGrid()
     {
         add(speler);
@@ -58,9 +84,9 @@ public class Grid extends JPanel
     {
          gridVeld = new Veld[rows][colum];
         
-        for (int i = 0; i < 20; i++) 
+        for (int i = 0; i < rows; i++) 
         {
-            for (int j = 0; j < 20; j++) 
+            for (int j = 0; j < rows; j++) 
             {
                 Veld veld = new Veld();
                 veld.x = j;
@@ -74,9 +100,9 @@ public class Grid extends JPanel
         public void IndVeld()
         {
              
-        for (int i = 1; i < 19; i++) 
+        for (int i = 1; i < rows -1; i++) 
         {
-            for (int j = 1; j < 19; j++) 
+            for (int j = 1; j < rows -1; j++) 
             { 
                 gridVeld[i][j].Noord=gridVeld[i-1][j];
                 gridVeld[i][j].Zuid = gridVeld[i+1][j];
@@ -93,7 +119,7 @@ public class Grid extends JPanel
         }
          public void readGrid()
         {
-           String [] mapArray = new String[20];
+           String [] mapArray = new String[rows];
            File file;
            FileInputStream fis;
 
@@ -104,7 +130,7 @@ public class Grid extends JPanel
                 
                 BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 
-                for (int i = 0; i < 20; i++) 
+                for (int i = 0; i < rows; i++) 
                 {
                       mapArray[i] = br.readLine();
                 }
@@ -116,15 +142,16 @@ public class Grid extends JPanel
             int Xposition = 0;
             int Yposition = 0;
         
-        for (int i = 0; i < 20; i++) 
+        for (int i = 0; i < rows; i++) 
         {
             
-            for (int j = 0; j < 20; j++) 
+            for (int j = 0; j < rows; j++) 
             {
                 
                  if(mapArray[i].substring(j, j+1).equals("b"))
                 {
                     Item b = new Muur(true);
+                    b.boxSize = boxSize;
                     gridVeld[i][j].item = b;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -135,6 +162,7 @@ public class Grid extends JPanel
                 if(mapArray[i].substring(j, j+1).equals("w"))
                 {
                     Item muur = new Muur();
+                    muur.boxSize = boxSize;
                     gridVeld[i][j].item = muur;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -147,6 +175,7 @@ public class Grid extends JPanel
                     Item help = new Helper(this);
                     
                     gridVeld[i][j].item = help;
+                     help.boxSize = boxSize;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
                     help.setBounds(Xposition, Yposition, boxSize, boxSize);
@@ -155,6 +184,7 @@ public class Grid extends JPanel
                   if(mapArray[i].substring(j, j+1).equals("v"))
                 {
                     Item vriend = new Vriend();
+                     vriend.boxSize = boxSize;
                     gridVeld[i][j].item = vriend;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -164,6 +194,7 @@ public class Grid extends JPanel
                   if(mapArray[i].substring(j, j+1).equals("B"))
                 {
                     Item bazooka = new Bazooka();
+                     bazooka.boxSize = boxSize;
                     gridVeld[i][j].item = bazooka;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -179,6 +210,7 @@ public class Grid extends JPanel
                     Cheater cheater = new Cheater();
                    
                     gridVeld[i][j].item = cheater;
+                     cheater.boxSize = boxSize;
                     //cheater.task = level.getSpelstat().task;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -189,6 +221,7 @@ public class Grid extends JPanel
                  if(mapArray[i].substring(j, j+1).equals("s"))
                  {
                     gridVeld[i][j].item = speler;
+                     speler.boxSize = boxSize;
                     speler.setBounds(Xposition, Yposition, boxSize, boxSize);
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
@@ -205,9 +238,9 @@ public class Grid extends JPanel
          
           public void leegGrid()
     {
-        for (int i = 1; i < 19; i++) 
+        for (int i = 1; i < rows -1; i++) 
         {
-            for (int j = 1; j < 19; j++) 
+            for (int j = 1; j < rows -1; j++) 
             { 
                 gridVeld[i][j].item = null;
             }
