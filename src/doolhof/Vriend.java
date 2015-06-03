@@ -14,8 +14,7 @@ import java.awt.Graphics;
  * @author Danny
  */
 public class Vriend extends Item {
-    
-    int boxSize=30;
+   
     
       @Override
      public void paintComponent(Graphics g) 
