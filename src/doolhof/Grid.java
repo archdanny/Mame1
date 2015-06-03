@@ -64,6 +64,7 @@ public class Grid extends JPanel
 
                 rows = i;
                boxSize = frameHoogte/rows;
+             Item.boxSize = boxSize;
     }catch (Exception e) 
     {
         System.out.println(e);

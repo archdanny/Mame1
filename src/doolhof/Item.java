@@ -19,7 +19,7 @@ public abstract class Item extends JComponent
 {
       protected Veld huidigeVeld;
       protected Image image;
-      protected int boxSize = 30;
+      public static int boxSize;
       
     
     @Override
