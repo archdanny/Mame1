@@ -71,6 +71,11 @@ public class Grid extends JPanel
              
         }
     
+    public int getRows()
+    {
+        return rows;
+    }
+    
     public void makeGrid()
     {
         add(speler);

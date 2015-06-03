@@ -114,13 +114,13 @@ public class Helper extends Item{
          Node  playerPos= new Node(grid.speler.huidigeVeld);
          Node current = null;
          Node target = null;
-         Node [][] nodeList = new Node[20][20];
+         Node [][] nodeList = new Node[grid.getRows()][grid.getRows()];
         ArrayList<Node> listOpen = new ArrayList<>();
         ArrayList<Node> listClosed  = new ArrayList<>();
         
-          for (int i = 0; i < 20; i++) 
+          for (int i = 0; i < grid.getRows(); i++) 
         {
-            for (int j = 0; j < 20; j++) 
+            for (int j = 0; j < grid.getRows(); j++) 
             {
                  if(grid.gridVeld[i][j].item instanceof Vriend)
                 {
@@ -136,9 +136,9 @@ public class Helper extends Item{
         }
    
 
-         for (int i = 1; i < 19; i++) 
+         for (int i = 1; i < grid.getRows() -1; i++) 
         {
-            for (int j = 1; j < 19; j++) 
+            for (int j = 1; j < grid.getRows() -1; j++) 
             { 
                 nodeList[i][j].upNode = nodeList[i-1][j];
                 nodeList[i][j].downNode = nodeList[i+1][j];
@@ -211,9 +211,10 @@ public class Helper extends Item{
          if(node.parentNode != null)
          {
             Item cheat = new Helper(grid);
+            cheat.boxSize = boxSize;
             Container panelContainer = this.getParent();
             Grid grid = (Grid)panelContainer;
-            cheat.setBounds(node.veld.x * 30, node.veld.y * 30, boxSize, boxSize);
+            cheat.setBounds(node.veld.x * boxSize, node.veld.y * boxSize, boxSize, boxSize);
             grid.add(cheat);
             grid.repaint();
             System.out.println("X :" +node.veld.x +"   Y:" + node.veld.y);
