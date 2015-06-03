@@ -6,6 +6,7 @@
 
 package doolhof;
 
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -17,32 +18,43 @@ import javax.swing.JPanel;
  */
 public class Bazooka extends Item{
     
-     public Veld huidigeVeld;
-     private ImageIcon imageGet;
-     private Image image;
-     private boolean breekbaar;
-     private int boxSize = 30;
+    int kogels;
     
     public Bazooka()
     {
-      imageGet = new  ImageIcon(getClass().getClassLoader().getResource("Images/bazooka.png"));
-      image = imageGet.getImage();
-      breekbaar =true;
+      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/bazooka.png")).getImage();
     }
     
      @Override
      public void paintComponent(Graphics g) 
         {
-            
             super.paintComponent(g);
             g.drawImage(image, 0, 0, boxSize, boxSize, null, this);
-
         }
      
-     public void afschieten(Direction d, Veld veld,int x,int y, JPanel panel)
+     public void afschieten(Direction d, Veld veld)
      {
-         Raket shoot = new Raket(d,veld, x, y,panel);
-        
+         Container panelContainer = this.getParent();
+         JPanel panel = (JPanel)panelContainer;
+         if(kogels !=0)
+         {
+         Raket shoot = new Raket(d,veld,panel);
+         kogels --;
+         Grid grid = (Grid)panelContainer;
+         SpelStat stat = grid.level.getSpelstat();
+         stat.aantalKogels(kogels);
+         stat.repaint();
+         }
+         
+     }
+     
+     public void opgepakt()
+     {
+         Container panelContainer = this.getParent();
+         Grid grid = (Grid)panelContainer;
+         SpelStat stat = grid.level.getSpelstat();
+         kogels +=3;
+         stat.aantalKogels(kogels);
      }
      
     

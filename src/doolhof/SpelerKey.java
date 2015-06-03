@@ -60,7 +60,7 @@ public class SpelerKey implements KeyListener {
             }
              if(e.getKeyCode() == KeyEvent.VK_SPACE)
             {
-                speler.destroy();
+                speler.schieten();
             }
            
         }

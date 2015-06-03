@@ -31,7 +31,7 @@ public class Grid extends JPanel
     private int rows = 20;
     private int colum = 20;
     public Veld gridVeld [][];
-    private Speler speler;
+    public Speler speler;
     public Level level;
     
     public Grid()
@@ -52,7 +52,6 @@ public class Grid extends JPanel
         setSize(frameHoogte, frameBreedte);
         setLayout(null);
         //speler = null;
-
     }
     
         public void makeGridVelden()
@@ -64,6 +63,8 @@ public class Grid extends JPanel
             for (int j = 0; j < 20; j++) 
             {
                 Veld veld = new Veld();
+                veld.x = j;
+                veld.y = i;
                 gridVeld[i][j] = veld;
             }
         }
@@ -77,14 +78,19 @@ public class Grid extends JPanel
         {
             for (int j = 1; j < 19; j++) 
             { 
-                gridVeld[i][j].Noord = gridVeld[i-1][j];
+                gridVeld[i][j].Noord=gridVeld[i-1][j];
                 gridVeld[i][j].Zuid = gridVeld[i+1][j];
                 gridVeld[i][j].West = gridVeld[i][j-1];
                 gridVeld[i][j].Oost = gridVeld[i][j+1];
+                gridVeld[i][j].filHash();
             }
         } 
         }
         
+        public Speler getSpeler()
+        {
+            return speler;
+        }
          public void readGrid()
         {
            String [] mapArray = new String[20];
@@ -173,7 +179,7 @@ public class Grid extends JPanel
                     Cheater cheater = new Cheater();
                    
                     gridVeld[i][j].item = cheater;
-                    cheater.task = level.getSpelstat().task;
+                    //cheater.task = level.getSpelstat().task;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
                     cheater.setBounds(Xposition, Yposition, boxSize, boxSize);
@@ -183,9 +189,7 @@ public class Grid extends JPanel
                  if(mapArray[i].substring(j, j+1).equals("s"))
                  {
                     gridVeld[i][j].item = speler;
-                    speler.x = Xposition;
-                    speler.y = Yposition;
-                    speler.setBounds(speler.x, speler.y, boxSize, boxSize);
+                    speler.setBounds(Xposition, Yposition, boxSize, boxSize);
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
                     speler.huidigeVeld = gridVeld[i][j];

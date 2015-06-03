@@ -20,12 +20,14 @@ import javax.swing.JPanel;
 public class SpelStat extends JPanel {
 
     private JLabel label;
+    private JLabel Klabel;
     private JButton startB;
     private JButton restartB;
     public Level level;
-    public Task task;
+//    public Task task;
     private Timer timer;
-    private Speler speler;
+    Bazooka bazooka = new Bazooka();
+   
 
     public SpelStat() {
         setSize(400, 50);
@@ -40,10 +42,13 @@ public class SpelStat extends JPanel {
         restartB.setBounds(110, 10, 100, 30);
         add(startB);
         startB.setBounds(10, 10, 100, 30);
-        label = new JLabel("60");
+        label = new JLabel("0");
         add(label);
         label.setBounds(250, 10, 100, 30);
-        task = new Task();
+        Klabel = new JLabel("Bazooka : " + Integer.toString(bazooka.kogels));
+        add(Klabel);
+        Klabel.setBounds(350, 10, 100, 30);
+        
     }
 
     public class ResetListnenr implements ActionListener {
@@ -53,13 +58,27 @@ public class SpelStat extends JPanel {
 
             startB.setEnabled(false);
             level.starten();
-            
-            timer = new Timer();
-            timer.schedule(task, 1000, 1000);
+//            
+//            timer = new Timer();
+//            timer.schedule(task, 1000, 1000);
             
         }
     }
     
+    public void stappenTeller(int stappen)
+    {
+        String labelText = label.getText();
+        int steps = Integer.parseInt(labelText);
+        steps = steps + stappen;
+        String stapjes = Integer.toString(steps);
+         label.setText(stapjes);
+         repaint();
+    }
+    
+    public void aantalKogels(int kogels)
+    {
+        Klabel.setText("Bazooka : " + Integer.toString(kogels));
+    }
     
 
     public class ResetListener implements ActionListener {
@@ -68,30 +87,30 @@ public class SpelStat extends JPanel {
         public void actionPerformed(ActionEvent e) {
             startB.setEnabled(true);
             level.herstarten();
-            timer.cancel();
-            label.setText("60");
+//            timer.cancel();
+            label.setText("0");
             requestFocus();
             
 
         }
     }
 
-    public class Task extends TimerTask {
-
-       public int countdown = 59;
-
-        @Override
-        public void run() {
-            String tijd = Integer.toString(countdown);
-            label.setText(tijd);
-            if (countdown == 0) {
-                timer.cancel();
-                startB.setEnabled(false);
-            } else {
-                countdown -= 1;
-
-            }
-
-        }
-    }
+//    public class Task extends TimerTask {
+//
+//       public int countdown = 59;
+//
+//        @Override
+//        public void run() {
+//            String tijd = Integer.toString(countdown);
+//            label.setText(tijd);
+//            if (countdown == 0) {
+//                timer.cancel();
+//                startB.setEnabled(false);
+//            } else {
+//                countdown -= 1;
+//
+//            }
+//
+//        }
+//    }
 }

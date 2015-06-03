@@ -27,29 +27,24 @@ import javax.swing.JPanel;
  */
 public class Raket extends Item {
     
-    private int boxSize = 30;
-    private Image image;
-    public Veld huidigeVeld;
+
+    
     private Veld veldCheck;
     Direction direction;
     private JPanel panel;
-    int x;
-    int y;
     private TimerTask task;
     private  Timer timer;
   
     
-    public Raket(Direction d,Veld veld , int x,int y, JPanel panel)
+    public Raket(Direction d,Veld veld, JPanel panel)
     {
         
         image = new  ImageIcon(getClass().getClassLoader().getResource("Images/raket.png")).getImage();
         huidigeVeld = veld;
-        this.x = x;
-        this.y = y;
         direction =d;
         this.panel = panel;
         veldCheck = getVeldDirection();
-        flying(direction,huidigeVeld);
+        flying();
     }
     
      @Override
@@ -99,30 +94,9 @@ public class Raket extends Item {
             veld = huidigeVeld.veldHash.get(direction);
             return veld;
      }
-     
-     private void move()
-     {
-          if(direction == Up)
-             {
-                 y = y - boxSize;
-             }
-               if(direction == Left)
-             {
-                 x = x - boxSize;
-             }
-              if(direction == Right)
-             {
-                 x = x + boxSize;
-             }
-              if(direction == Down)
-             {
-                 y = y + boxSize;
-             }
-     }
 
-    public void flying(Direction d,Veld veld)
+    public void flying()
     {
-     
          if(veldCheck.item instanceof Muur)
              {
                  DestroyVeld();
@@ -149,8 +123,7 @@ public class Raket extends Item {
         }
         else
         {
-        move();
-        setBounds(x, y , boxSize, boxSize);
+        setBounds(huidigeVeld.x * boxSize, huidigeVeld.y * boxSize , boxSize, boxSize);
         huidigeVeld = getVeldDirection();
         veldCheck = getVeldDirection();
         repaint();
@@ -168,7 +141,7 @@ public class Raket extends Item {
                  Muur m = (Muur)veldCheck.item;
                  if(m.getBreekbaar() == true)
                  {
-                    m.destroy();
+                    m.destroy(veldCheck.item);
                     veldCheck.item = null;
                  }
                  else

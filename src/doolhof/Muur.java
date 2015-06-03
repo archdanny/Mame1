@@ -18,16 +18,12 @@ import javax.swing.ImageIcon;
  */
 public class Muur extends Item
 {
-     private Veld huidigeVeld;
-     private ImageIcon imageGet;
-     private Image image;
+     
      private boolean breekbaar;
-     private int boxSize = 30;
     
     public Muur()
     {
-      imageGet = new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png"));
-      image = imageGet.getImage();
+      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png")).getImage();
       breekbaar =true;
     }
     
@@ -37,10 +33,8 @@ public class Muur extends Item
         {
            breekbaar = false; 
         }
-      imageGet = new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png"));
-      image = imageGet.getImage();
+      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png")).getImage();
     }
-    
     
      @Override
      public void paintComponent(Graphics g) 
@@ -51,9 +45,10 @@ public class Muur extends Item
 
         }
      
-     public void destroy()
+     public void destroy(Item item)
      {
           setVisible(false);  
+          item = null;
      }
      
      public boolean getBreekbaar()

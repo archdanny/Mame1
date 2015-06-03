@@ -7,6 +7,8 @@
 package doolhof;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.util.HashMap;
 import javax.swing.JComponent;
 
 /**
@@ -15,18 +17,15 @@ import javax.swing.JComponent;
  */
 public abstract class Item extends JComponent
 {
+      protected Veld huidigeVeld;
+      protected Image image;
+      protected int boxSize = 30;
+      
     
     @Override
      public void paintComponent(Graphics g) 
         {
             super.paintComponent(g);
             
-        }
-     
-    public void Draw(Graphics g)
-    {
-    
-    }
-    
-    
+        }  
 }
