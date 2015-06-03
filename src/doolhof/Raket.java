@@ -57,20 +57,20 @@ public class Raket extends Item {
              if(direction == Up)
              {
                 rotation = 180;
-                translateX =30;
-                translateY =30;
+                translateX =boxSize;
+                translateY =boxSize;
              }
                if(direction == Left)
              {
                 rotation = 90;
-                translateX =30;
+                translateX =boxSize;
                 translateY =0;
              }
               if(direction == Right)
              {
                  rotation = 270;
                 translateX =0;
-                translateY =30;
+                translateY =boxSize;
              }
               if(direction == Down)
              {

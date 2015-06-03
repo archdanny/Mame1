@@ -25,14 +25,17 @@ import javax.swing.JPanel;
 public class Speler extends Item implements Beweeg
 {
     private Bazooka bazooka;
-    public SpelerKey keys;
-    public Direction direction;
+    protected SpelerKey keys;
+    private Direction direction;
+    private int stappen;
+    
 
     public Speler()
     {
         keys = new SpelerKey();
         image = new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage();
         direction = Down;
+        stappen =0;
     }
     
      @Override
@@ -78,37 +81,46 @@ public class Speler extends Item implements Beweeg
     @Override
      public void move(Direction d)
      {
-          Container panelContainer = this.getParent();
-            Grid panel = (Grid)panelContainer;
-        SpelStat stat = panel.getLevel().getSpelstat();
         direction = d;
         Veld veld = huidigeVeld.veldHash.get(direction);
         if(veld.item instanceof Muur == false)
             {
-            checkBazooka(veld);
-            checkVriend(veld);
-            checkHelper(veld);
-            checkBCheater(veld);
+            checkItem(veld);
             huidigeVeld =veld;
             setBounds(huidigeVeld.x * boxSize, huidigeVeld.y * boxSize, boxSize, boxSize);
-            stat.stappenTeller(1);
+            stappen++;
+            stappen();
             }
             repaint(); 
      }
      
-     public void checkVriend(Veld veld)
+     private void stappen()
      {
-         if(veld.item instanceof Vriend)
-         {
-           Container panelContainer = this.getParent();
-            JPanel panel = (JPanel)panelContainer;
-            panel.setVisible(false);
-         }
+//        Container panelContainer = this.getParent();
+//        Grid grid = (Grid)panelContainer;
+//        SpelStat stat = grid.getLevel().getSpelstat();
+//        stat.stappenTeller(stappen);
      }
      
-       public void checkHelper(Veld veld)
-     {
-         if(veld.item instanceof Helper)
+   
+      private void checkItem(Veld veld)
+      {
+           if(veld.item instanceof Cheater)
+         {
+            Cheater cheater = (Cheater) veld.item;
+            cheater.cheat();          
+            repaint();
+            veld.item.setVisible(false);
+            veld.item= null;
+         }
+            if(veld.item instanceof Vriend)
+         {
+           Vriend vriend = (Vriend) veld.item;
+           
+           vriend.volgendeLevel();
+            veld.item = null;
+         }
+              if(veld.item instanceof Helper)
          {
             Container panelContainer = this.getParent();
             JPanel panel = (JPanel)panelContainer;
@@ -118,11 +130,7 @@ public class Speler extends Item implements Beweeg
              help.roepSetPath();
              veld.item = null;
          }
-     }
-     
-     public void checkBazooka(Veld veld)
-     {
-         if(veld.item instanceof Bazooka)
+               if(veld.item instanceof Bazooka)
          {
             bazooka = (Bazooka) veld.item;
             bazooka.opgepakt();
@@ -132,34 +140,20 @@ public class Speler extends Item implements Beweeg
             veld.item.setVisible(false);
             veld.item = null;
          }
-         if(bazooka == null)
+         if(bazooka != null)
          {
+             if(bazooka.getKogels() == 0)
+             {
             image = new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage();
             resetSpeler();
+             }
          }
-     }
-     
-      public void checkBCheater(Veld veld)
-     {
-         if(veld.item instanceof Cheater)
-         {
-            Cheater cheater = (Cheater) veld.item;
-            cheater.cheat();          
-            repaint();
-            veld.item.setVisible(false);
-            veld.item= null;
-         }
-     }
-      
-      
-      public void checkItem()
-      {
-          
       }
      
      public void resetSpeler()
      {
         bazooka = null;
+        stappen =0;
         image = new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage();  
      }
      
@@ -167,11 +161,16 @@ public class Speler extends Item implements Beweeg
      {
          if(bazooka != null)
          {
+             if(bazooka.getKogels() == 0)
+             {
+                 resetSpeler();
+             }
+             else
+             {
             bazooka.afschieten(direction, huidigeVeld);
+             }
          }
-         if(bazooka.getKogels() == 0)
-         {
-             resetSpeler();
-         }
+ 
      }  
+  
 }

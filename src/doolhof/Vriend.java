@@ -7,6 +7,7 @@
 package doolhof;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
@@ -30,5 +31,13 @@ public class Vriend extends Item {
     {
         
         image = new  ImageIcon(getClass().getClassLoader().getResource("Images/vriend.png")).getImage();
+    }
+    
+    public void volgendeLevel()
+    {
+        Container panelContainer = this.getParent();
+            Grid grid = (Grid)panelContainer;
+            grid.getLevel().volgendeLevel();
+        
     }
 }

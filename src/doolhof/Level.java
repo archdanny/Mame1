@@ -6,25 +6,36 @@
 
 package doolhof;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  *
  * @author Danny
  */
 public class Level 
 {
-    private int score;
+    private int levelNum;
     private Grid grid;
     private SpelStat spelstat;
+    private ArrayList<File> levels;
     
-    public Level()
+    public Level(ArrayList<File> _levels)
     {
+       levels = _levels;
+       levelNum =0;
        spelstat = new SpelStat();
        spelstat.level = this;
        grid = new Grid(this);
-       grid.makeGrid();
+       grid.makeGrid(levels.get(levelNum));
        grid.makeGridVelden();
-       grid.readGrid();
+       grid.readGrid(levels.get(levelNum));
        grid.IndVeld();
+//       Task task = new Task();
+//       Timer timer = new Timer();
+//       timer.schedule(task, 0, 200);
 
     }
     
@@ -35,11 +46,11 @@ public class Level
     
     public void herstarten()
     {
-
         grid.removeAll();
-        grid.makeGrid();
+        grid.resetSpeler();
+        grid.makeGrid(levels.get(levelNum));
         grid.makeGridVelden();
-        grid.readGrid();
+        grid.readGrid(levels.get(levelNum));
         grid.IndVeld();
         grid.repaint();
     }
@@ -53,5 +64,35 @@ public class Level
     {
         return grid;
     }
+    
+    public void volgendeLevel()
+    {
+        
+        if(levelNum < levels.size()-1)
+        {
+        levelNum ++;
+       
+        herstarten();
+        }
+        else
+        { 
+            
+        }
+    }
+//    public void spelCheck()
+//    {
+//        //grid.getSpeler().
+//    }
+//    
+//      private class Task extends TimerTask {
+//
+//
+//        @Override
+//        public void run() 
+//        {
+//           spelCheck();
+//        }
+//    
+//     }
 
 }

@@ -10,7 +10,13 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.Scanner;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -29,21 +35,35 @@ public class Grid extends JPanel
     
     public Grid(Level _level)
     {
-       level = _level;
-       Color color = new Color(221, 210,197);
-       setBackground(color);
-       speler = new Speler();
-       add(speler);          
-       speler.keys.speler = speler;
-       addKeyListener(speler.keys);
-       setFocusable(true);
-       requestFocus();
-       requestFocusInWindow(true);
+       
+            level = _level;
+            Color color = new Color(221, 210,197);
+            setBackground(color);
+            speler = new Speler();
+            speler.keys.speler = speler;
+            addKeyListener(speler.keys);
+            setFocusable(true);
+            requestFocus();
+            requestFocusInWindow(true);
+
+    }
+    public void resetSpeler()
+    {
+        remove(speler);
+        speler =null;
+        speler = new Speler();
+        speler.keys.speler = speler;
+        addKeyListener(speler.keys);
     }
     
     public Level getLevel()
     {
         return level;
+    }
+    
+     public Speler getSpeler()
+    {
+        return speler;
     }
 
     public int getRows()
@@ -51,28 +71,20 @@ public class Grid extends JPanel
         return rows;
     }
     
-    public void makeGrid()
+    public void makeGrid(File file)
     {
         add(speler);
-        speler.resetSpeler();
         setSize(frameHoogte, frameBreedte);
         setLayout(null);
            String  length = new String();
-            File file;
             FileInputStream fis;
              try {
-            file = new File(getClass().getClassLoader().getResource("Levels/levelTres.txt").getFile());
-           
+
                fis = new FileInputStream(file);
                 
                 BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-
-               
                       length = br.readLine();
-               
-                int i = length.length();
-
-                rows = i;
+                rows = length.length();
                boxSize = frameHoogte/rows;
              Item.boxSize = boxSize;
     }catch (Exception e) 
@@ -114,15 +126,13 @@ public class Grid extends JPanel
         } 
         }
 
-        public void readGrid()
+        public void readGrid(File file)
         {
            String [] mapArray = new String[rows];
-           File file;
-           FileInputStream fis;
 
+           FileInputStream fis;
+           
             try {
-               
-               file = new File(getClass().getClassLoader().getResource("Levels/levelTres.txt").getFile());
                fis = new FileInputStream(file);
                 
                 BufferedReader br = new BufferedReader(new InputStreamReader(fis));
@@ -203,7 +213,6 @@ public class Grid extends JPanel
                     Cheater cheater = new Cheater();
                    
                     gridVeld[i][j].item = cheater;
-                    //cheater.task = level.getSpelstat().task;
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
                     cheater.setBounds(Xposition, Yposition, boxSize, boxSize);
@@ -217,6 +226,7 @@ public class Grid extends JPanel
                     gridVeld[i][j].y = i;
                     gridVeld[i][j].x = j;
                     speler.huidigeVeld = gridVeld[i][j];
+                    repaint();
                  }
 
                 Xposition = Xposition+boxSize;

@@ -58,19 +58,13 @@ public class SpelStat extends JPanel {
 
             startB.setEnabled(false);
             level.starten();
-//            
-//            timer = new Timer();
-//            timer.schedule(task, 1000, 1000);
             
         }
     }
     
     public void stappenTeller(int stappen)
     {
-        String labelText = label.getText();
-        int steps = Integer.parseInt(labelText);
-        steps = steps + stappen;
-        String stapjes = Integer.toString(steps);
+        String stapjes = Integer.toString(stappen);
          label.setText(stapjes);
          repaint();
     }
@@ -96,22 +90,4 @@ public class SpelStat extends JPanel {
         }
     }
 
-//    public class Task extends TimerTask {
-//
-//       public int countdown = 59;
-//
-//        @Override
-//        public void run() {
-//            String tijd = Integer.toString(countdown);
-//            label.setText(tijd);
-//            if (countdown == 0) {
-//                timer.cancel();
-//                startB.setEnabled(false);
-//            } else {
-//                countdown -= 1;
-//
-//            }
-//
-//        }
-//    }
 }
