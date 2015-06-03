@@ -61,7 +61,7 @@ public class Grid extends JPanel
             File file;
             FileInputStream fis;
              try {
-            file = new File(getClass().getClassLoader().getResource("Levels/levelDos.txt").getFile());
+            file = new File(getClass().getClassLoader().getResource("Levels/levelTres.txt").getFile());
            
                fis = new FileInputStream(file);
                 
@@ -122,7 +122,7 @@ public class Grid extends JPanel
 
             try {
                
-               file = new File(getClass().getClassLoader().getResource("Levels/levelDos.txt").getFile());
+               file = new File(getClass().getClassLoader().getResource("Levels/levelTres.txt").getFile());
                fis = new FileInputStream(file);
                 
                 BufferedReader br = new BufferedReader(new InputStreamReader(fis));
