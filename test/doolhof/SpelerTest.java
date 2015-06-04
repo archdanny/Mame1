@@ -6,6 +6,7 @@
 
 package doolhof;
 
+import static doolhof.Direction.Down;
 import static doolhof.Direction.Up;
 import java.awt.Graphics;
 import org.junit.After;
@@ -58,9 +59,8 @@ public class SpelerTest {
      */
     @Test
     public void testMove() {
-        
 
-        Direction direction = Up;
+        Direction direction = Down;
         Speler instance = new Speler();
         
         Veld veld = new Veld();
@@ -78,7 +78,6 @@ public class SpelerTest {
         veld.Oost =Oost;
         veld.filHash();
  
-
         instance.huidigeVeld = veld;
         instance.move(direction);
         assertEquals(instance.huidigeVeld, Zuid);

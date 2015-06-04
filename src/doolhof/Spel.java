@@ -60,9 +60,7 @@ public class Spel extends JFrame
                      File file = new File(getClass().getClassLoader().getResource("Levels/" + ag.next() ).getFile());  
                      levels.add(file);
                     }
-                    
-                    //System.out.println(new Scanner((InputStream) url.getContent()).useDelimiter("\\A").next());
-                    
+           
                 } catch (IOException ex) {
                     Logger.getLogger(Grid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }

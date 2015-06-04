@@ -62,7 +62,7 @@ public class SpelerKey implements KeyListener {
             {
                 speler.schieten();
             }
-           
+           speler.repaint();
         }
 
         @Override

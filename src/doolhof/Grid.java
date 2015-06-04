@@ -159,8 +159,6 @@ public class Grid extends JPanel
                 {
                     Item b = new Muur(true);
                     gridVeld[i][j].item = b;
-                    gridVeld[i][j].y = i;
-                    gridVeld[i][j].x = j;
                     b.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(b);
                 }
@@ -169,8 +167,6 @@ public class Grid extends JPanel
                 {
                     Item muur = new Muur();
                     gridVeld[i][j].item = muur;
-                    gridVeld[i][j].y = i;
-                    gridVeld[i][j].x = j;
                     muur.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(muur);
                 }
@@ -180,8 +176,6 @@ public class Grid extends JPanel
                     Item help = new Helper(this);
                     
                     gridVeld[i][j].item = help;
-                    gridVeld[i][j].y = i;
-                    gridVeld[i][j].x = j;
                     help.huidigeVeld = gridVeld[i][j];
                     help.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(help);
@@ -190,8 +184,7 @@ public class Grid extends JPanel
                 {
                     Item vriend = new Vriend();
                     gridVeld[i][j].item = vriend;
-                    gridVeld[i][j].y = i;
-                    gridVeld[i][j].x = j;
+
                     vriend.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(vriend);
                 }
@@ -199,8 +192,6 @@ public class Grid extends JPanel
                 {
                     Item bazooka = new Bazooka();
                     gridVeld[i][j].item = bazooka;
-                    gridVeld[i][j].y = i;
-                    gridVeld[i][j].x = j;
                     bazooka.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(bazooka);
                 }
@@ -213,8 +204,6 @@ public class Grid extends JPanel
                     Cheater cheater = new Cheater();
                    
                     gridVeld[i][j].item = cheater;
-                    gridVeld[i][j].y = i;
-                    gridVeld[i][j].x = j;
                     cheater.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(cheater);
 
@@ -223,10 +212,7 @@ public class Grid extends JPanel
                  {
                     gridVeld[i][j].item = speler;
                     speler.setBounds(Xposition, Yposition, boxSize, boxSize);
-                    gridVeld[i][j].y = i;
-                    gridVeld[i][j].x = j;
                     speler.huidigeVeld = gridVeld[i][j];
-                    repaint();
                  }
 
                 Xposition = Xposition+boxSize;

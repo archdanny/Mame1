@@ -41,6 +41,7 @@ public class Speler extends Item implements Beweeg
      @Override
      public void paintComponent(Graphics g) 
         {
+            setBounds(huidigeVeld.x * boxSize, huidigeVeld.y * boxSize, boxSize, boxSize);
             int rotation =0;
             super.paintComponent(g);
             int translateX =0;
@@ -87,11 +88,9 @@ public class Speler extends Item implements Beweeg
             {
             checkItem(veld);
             huidigeVeld =veld;
-            setBounds(huidigeVeld.x * boxSize, huidigeVeld.y * boxSize, boxSize, boxSize);
             stappen++;
             stappen();
             }
-            repaint(); 
      }
      
      private void stappen()
