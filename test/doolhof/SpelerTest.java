@@ -55,56 +55,96 @@ public class SpelerTest {
 //    }
 
     /**
-     * Test of move method, of class Speler.
+     * Test of move method With a direction 
      */
     @Test
-    public void testMove() {
+    public void testMoveMethod() {
 
         Direction direction = Down;
         Speler instance = new Speler();
         
         Veld veld = new Veld();
+        
         Veld Noord = new Veld();
-
-        veld.Noord = Noord;
         Veld Zuid = new Veld();
-
-        veld.Zuid = Zuid;
         Veld West = new Veld();
-
-        veld.West = West;
         Veld Oost = new Veld();
 
-        veld.Oost =Oost;
-        veld.filHash();
+        veld.fillBuurMap(Noord, Zuid, West ,Oost);
  
-        instance.huidigeVeld = veld;
+        instance.setVeld(veld);
         instance.move(direction);
-        assertEquals(instance.huidigeVeld, Zuid);
+        assertEquals(instance.getVeld(), Zuid);
+    }
+    
+    
+       @Test
+    public void testOldVeld() {
+
+        Direction direction = Up;
+        Speler instance = new Speler();
+        
+        Veld veld = new Veld();
+        
+        Veld Noord = new Veld();
+        Veld Zuid = new Veld();
+        Veld West = new Veld();
+        Veld Oost = new Veld();
+
+        veld.fillBuurMap(Noord, Zuid, West ,Oost);
+ 
+        instance.setVeld(veld);
+        instance.move(direction);
+        assertEquals(veld.getItem(), instance);
+    }
+    
+      @Test
+    public void testMoveWall() {
+
+        Direction direction = Up;
+        Speler instance = new Speler();
+        
+        Veld veld = new Veld();
+        
+        Veld Noord = new Veld();
+        Muur muur = new Muur();
+        Noord.setItem(muur);
+        Veld Zuid = new Veld();
+        Veld West = new Veld();
+        Veld Oost = new Veld();
+
+        veld.fillBuurMap(Noord, Zuid, West ,Oost);
+ 
+        instance.setVeld(veld);
+        instance.move(direction);
+        assertEquals(instance.getVeld(), Noord);
+        
+    }
+    
+    
+     
+      @Test
+    public void testBazookaPickUp() {
+
+        Direction direction = Up;
+        Speler instance = new Speler();
+        
+        Veld veld = new Veld();
+        
+        Veld Noord = new Veld();
+        Bazooka bazooka = new Bazooka();
+        Noord.setItem(bazooka);
+        Veld Zuid = new Veld();
+        Veld West = new Veld();
+        Veld Oost = new Veld();
+
+        veld.fillBuurMap(Noord, Zuid, West ,Oost);
+ 
+        instance.setVeld(veld);
+        instance.move(direction);
+        assertEquals(instance.getBazooka(), bazooka);
+        
     }
 
-//    /**
-//     * Test of resetSpeler method, of class Speler.
-//     */
-//    @Test
-//    public void testResetSpeler() {
-//        System.out.println("resetSpeler");
-//        Speler instance = new Speler();
-//        instance.resetSpeler();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 
-//    /**
-//     * Test of schieten method, of class Speler.
-//     */
-//    @Test
-//    public void testSchieten() {
-//        System.out.println("schieten");
-//        Speler instance = new Speler();
-//        instance.schieten();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//    
 }

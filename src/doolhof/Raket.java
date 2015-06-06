@@ -94,14 +94,13 @@ public class Raket extends Item {
              }
          else
          {  
-                
                 task = new Task();
                 timer = new Timer();
                 timer.schedule(task, 0, 50);
          }    
     }
     
-    public void destroy()
+    public void destroyCheck()
     {
         if(veldCheck.getItem()  instanceof Muur)
         {
@@ -148,7 +147,7 @@ public class Raket extends Item {
         @Override
         public void run() 
         {
-           destroy();
+           destroyCheck();
         }
      }
 }

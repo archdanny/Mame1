@@ -62,7 +62,7 @@ public class HelperTest {
         Veld veld = null;
         JPanel panel = null;
         Helper instance = null;
-        instance.GetLocation(veld, panel);
+        
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -74,7 +74,7 @@ public class HelperTest {
     public void testRoepSetPath() {
         System.out.println("roepSetPath");
         Helper instance = null;
-        instance.roepSetPath();
+      
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

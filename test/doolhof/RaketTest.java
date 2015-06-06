@@ -71,7 +71,7 @@ public class RaketTest {
     public void testDestroy() {
         System.out.println("destroy");
         Raket instance = null;
-        instance.destroy();
+        instance.destroyCheck();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

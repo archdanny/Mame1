@@ -46,7 +46,7 @@ public class CheaterTest {
     public void testCheat() {
         System.out.println("cheat");
         Cheater instance = new Cheater();
-        instance.cheat();
+       
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

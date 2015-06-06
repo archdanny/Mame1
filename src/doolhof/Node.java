@@ -20,8 +20,8 @@ public class Node {
     Node parentNode;
     Node leftNode;
     Node rightNode;
-     Node upNode;
-     Node downNode;
+    Node upNode;
+    Node downNode;
      ArrayList<Node> nodeList;
          
          

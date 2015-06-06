@@ -20,18 +20,15 @@ import javax.swing.JPanel;
 public class SpelStat extends JPanel {
 
     private JLabel label;
-    private JLabel Klabel;
+    private JLabel bazookaLabel;
     private JButton startB;
     private JButton restartB;
     private Level level;
-    private Timer timer;
- 
-   
 
     public SpelStat() {
         setSize(400, 50);
         setLayout(null);
-        ResetListnenr a = new ResetListnenr();
+        StartListnener a = new StartListnener();
         startB = new JButton("Start");
         startB.addActionListener(a);
         restartB = new JButton("Restart");
@@ -44,20 +41,12 @@ public class SpelStat extends JPanel {
         label = new JLabel("0");
         add(label);
         label.setBounds(250, 10, 100, 30);
-        Klabel = new JLabel("Bazooka : 0");
-        add(Klabel);
-        Klabel.setBounds(350, 10, 100, 30);
+        bazookaLabel = new JLabel("Bazooka : 0");
+        add(bazookaLabel);
+        bazookaLabel.setBounds(350, 10, 100, 30);
     }
 
-    public class ResetListnenr implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            startB.setEnabled(false);
-            level.starten();
-        }
-    }
+   
     
     public void setLevel(Level _level)
     {
@@ -72,7 +61,7 @@ public class SpelStat extends JPanel {
     
     public void aantalKogels(int kogels)
     {
-        Klabel.setText("Bazooka : " + Integer.toString(kogels));
+        bazookaLabel.setText("Bazooka : " + Integer.toString(kogels));
     }
    
     public class ResetListener implements ActionListener {
@@ -82,8 +71,18 @@ public class SpelStat extends JPanel {
             startB.setEnabled(true);
             level.herstarten();
             label.setText("0");
-            Klabel.setText("Bazooka : 0");
+            bazookaLabel.setText("Bazooka : 0");
             requestFocus();
+        }
+    }
+    
+     public class StartListnener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            startB.setEnabled(false);
+            level.starten();
         }
     }
 
