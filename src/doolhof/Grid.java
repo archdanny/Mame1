@@ -10,13 +10,7 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.Scanner;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -29,7 +23,7 @@ public class Grid extends JPanel
     private final int frameBreedte = 600;
     private int rows = 20;
     private int boxSize = 20;
-    public Veld gridVeld [][];
+    private Veld gridVeld [][];
     private Speler speler;
     private Level level;
     
@@ -40,8 +34,9 @@ public class Grid extends JPanel
             Color color = new Color(221, 210,197);
             setBackground(color);
             speler = new Speler();
-            speler.keys.speler = speler;
-            addKeyListener(speler.keys);
+            speler.getSpelerKeys().setSpeler(speler);
+            speler.getSpelerKeys().setLevel(level);
+            addKeyListener(speler.getSpelerKeys());
             setFocusable(true);
             requestFocus();
             requestFocusInWindow(true);
@@ -49,11 +44,18 @@ public class Grid extends JPanel
     }
     public void resetSpeler()
     {
+        speler.resetSpeler();
         remove(speler);
         speler =null;
         speler = new Speler();
-        speler.keys.speler = speler;
-        addKeyListener(speler.keys);
+        speler.getSpelerKeys().setSpeler(speler);
+        speler.getSpelerKeys().setLevel(level);
+        addKeyListener(speler.getSpelerKeys());
+    }
+    
+    public Veld [][] getGrid()
+    {
+        return gridVeld;
     }
     
     public Level getLevel()
@@ -86,11 +88,12 @@ public class Grid extends JPanel
                       length = br.readLine();
                 rows = length.length();
                boxSize = frameHoogte/rows;
-             Item.boxSize = boxSize;
+             Item.setBoxSize(boxSize);
     }catch (Exception e) 
     {
         System.out.println(e);
-    }      
+    }
+             makeGridVelden();
     }
     
         public void makeGridVelden()
@@ -102,8 +105,8 @@ public class Grid extends JPanel
             for (int j = 0; j < rows; j++) 
             {
                 Veld veld = new Veld();
-                veld.x = j;
-                veld.y = i;
+                veld.setX(j);
+                veld.setY(i);
                 gridVeld[i][j] = veld;
             }
         }
@@ -117,11 +120,7 @@ public class Grid extends JPanel
         {
             for (int j = 1; j < rows -1; j++) 
             { 
-                gridVeld[i][j].Noord=gridVeld[i-1][j];
-                gridVeld[i][j].Zuid = gridVeld[i+1][j];
-                gridVeld[i][j].West = gridVeld[i][j-1];
-                gridVeld[i][j].Oost = gridVeld[i][j+1];
-                gridVeld[i][j].filHash();
+            gridVeld[i][j].fillBuurMap(gridVeld[i-1][j],gridVeld[i+1][j],gridVeld[i][j-1],gridVeld[i][j+1]);
             }
         } 
         }
@@ -151,14 +150,13 @@ public class Grid extends JPanel
         
         for (int i = 0; i < rows; i++) 
         {
-            
             for (int j = 0; j < rows; j++) 
             {
-                
                  if(mapArray[i].substring(j, j+1).equals("b"))
                 {
                     Item b = new Muur(true);
-                    gridVeld[i][j].item = b;
+                    b.setVeld(gridVeld[i][j]);
+                    gridVeld[i][j].setItem(b);
                     b.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(b);
                 }
@@ -166,7 +164,7 @@ public class Grid extends JPanel
                 if(mapArray[i].substring(j, j+1).equals("w"))
                 {
                     Item muur = new Muur();
-                    gridVeld[i][j].item = muur;
+                    gridVeld[i][j].setItem(muur);
                     muur.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(muur);
                 }
@@ -175,44 +173,51 @@ public class Grid extends JPanel
                 {
                     Item help = new Helper(this);
                     
-                    gridVeld[i][j].item = help;
-                    help.huidigeVeld = gridVeld[i][j];
+                    gridVeld[i][j].setItem(help);
+                    help.setVeld(gridVeld[i][j]);
                     help.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(help);
                 }
                   if(mapArray[i].substring(j, j+1).equals("v"))
                 {
                     Item vriend = new Vriend();
-                    gridVeld[i][j].item = vriend;
+                    gridVeld[i][j].setItem(vriend);
 
                     vriend.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(vriend);
                 }
                   if(mapArray[i].substring(j, j+1).equals("B"))
                 {
-                    Item bazooka = new Bazooka();
-                    gridVeld[i][j].item = bazooka;
-                    bazooka.setBounds(Xposition, Yposition, boxSize, boxSize);
-                    add(bazooka);
+                    Bazooka bazooka = new Bazooka();
+                    for (int k = 0; k < 3; k++) {
+                        Raket raket = new Raket();
+                        add(raket);
+                        bazooka.setRakets().add(raket);
+                    }
+                    Item bazookaI = (Item) bazooka;
+                    gridVeld[i][j].setItem(bazookaI);
+                    bazookaI.setBounds(Xposition, Yposition, boxSize, boxSize);
+                    add(bazookaI);
                 }
                  if(mapArray[i].substring(j, j+1).equals("g"))
                 {
-                    gridVeld[i][j].item = null;
+                    gridVeld[i][j].setItem(null);
                 }
                   if(mapArray[i].substring(j, j+1).equals("c"))
                 {
                     Cheater cheater = new Cheater();
                    
-                    gridVeld[i][j].item = cheater;
-                    cheater.setBounds(Xposition, Yposition, boxSize, boxSize);
+                    gridVeld[i][j].setItem(cheater);
                     add(cheater);
+                    cheater.setBounds(Xposition, Yposition, boxSize, boxSize);
+                   
 
                 }
                  if(mapArray[i].substring(j, j+1).equals("s"))
                  {
-                    gridVeld[i][j].item = speler;
+                    gridVeld[i][j].setItem(speler);
                     speler.setBounds(Xposition, Yposition, boxSize, boxSize);
-                    speler.huidigeVeld = gridVeld[i][j];
+                    speler.setVeld(gridVeld[i][j]);
                  }
 
                 Xposition = Xposition+boxSize;

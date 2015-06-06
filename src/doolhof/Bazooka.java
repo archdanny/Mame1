@@ -8,9 +8,9 @@ package doolhof;
 
 import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+
 
 /**
  *
@@ -19,41 +19,37 @@ import javax.swing.JPanel;
 public class Bazooka extends Item{
     
     private int kogels;
+    private int printKogels;
+    ArrayList<Raket> raketArray;
     
     public Bazooka()
     {
-      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/bazooka.png")).getImage();
+      setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/bazooka.png")).getImage());
+      raketArray = new ArrayList<>();
     }
     
      @Override
      public void paintComponent(Graphics g) 
         {
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, boxSize, boxSize, null, this);
+            g.drawImage(getImage(), 0, 0, getBoxsize(), getBoxsize(), null, this);
         }
      
      public void afschieten(Direction d, Veld veld)
      {
-         Container panelContainer = this.getParent();
-         JPanel panel = (JPanel)panelContainer;
-         if(kogels !=0)
+
+         if(kogels <3)
          {
-         Raket shoot = new Raket(d,veld,panel);
-         kogels --;
-         Grid grid = (Grid)panelContainer;
-         SpelStat stat = grid.getLevel().getSpelstat();
-         stat.aantalKogels(kogels);
-         stat.repaint();
+         raketArray.get(kogels).flying(d, veld);
+         kogels ++;
+         printKogels--;
          }
      }
      
      public void opgepakt()
      {
-         Container panelContainer = this.getParent();
-         Grid grid = (Grid)panelContainer;
-         SpelStat stat = grid.getLevel().getSpelstat();
-         kogels +=3;
-         stat.aantalKogels(kogels);
+         kogels =0;
+         printKogels= 3;
      }
      
      public int getKogels()
@@ -61,9 +57,19 @@ public class Bazooka extends Item{
         return kogels; 
      }
      
+     public int getPrintKogels()
+     {
+         return printKogels;
+     }
+     
      public void setKogels(int _kogels)
      {
          kogels = _kogels;
+     }
+     
+     public ArrayList<Raket> setRakets()
+     {
+         return raketArray;
      }
      
     

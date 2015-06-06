@@ -6,10 +6,8 @@
 
 package doolhof;
 
-import java.awt.Color;
+
 import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.DebugGraphics;
 import javax.swing.ImageIcon;
 
 /**
@@ -23,7 +21,7 @@ public class Muur extends Item
     
     public Muur()
     {
-      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png")).getImage();
+        setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png")).getImage());
       breekbaar =true;
     }
     
@@ -33,22 +31,21 @@ public class Muur extends Item
         {
            breekbaar = false; 
         }
-      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png")).getImage();
+        setImage( new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png")).getImage());
     }
     
      @Override
      public void paintComponent(Graphics g) 
         {
-            
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, boxSize, boxSize, null, this);
+            g.drawImage(getImage(), 0, 0, getBoxsize(), getBoxsize(), null, this);
 
         }
      
-     public void destroy(Item item)
+     public void destroy(Item _item)
      {
           setVisible(false);  
-          item = null;
+          _item = null;
      }
      
      public boolean getBreekbaar()

@@ -19,19 +19,18 @@ import java.awt.event.KeyListener;
  *
  * @author Danny
  */
-public class SpelerKey implements KeyListener {
+public class GameKey implements KeyListener {
     
-    Speler speler;
+    private Speler speler;
+    private Level level;
     
-    public SpelerKey()
+    public GameKey()
     {
        
     }
     
     @Override
         public void keyTyped(KeyEvent e) {
-
-
         }
 
         @Override
@@ -43,7 +42,6 @@ public class SpelerKey implements KeyListener {
                  speler.move(Up);
             }
            
-            
             if(e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
                 speler.move(Down);
@@ -63,6 +61,13 @@ public class SpelerKey implements KeyListener {
                 speler.schieten();
             }
            speler.repaint();
+           level.getSpelstat().stappenTeller(speler.getStappen());
+           if (speler.getBazooka() != null)
+           {
+           level.getSpelstat().aantalKogels(speler.getBazooka().getPrintKogels());
+           }
+           level.getSpelstat().repaint();
+           
         }
 
         @Override
@@ -73,6 +78,15 @@ public class SpelerKey implements KeyListener {
             }
   
         }
- 
+        
+        public void setSpeler(Speler _speler)
+        {
+            speler = _speler;
+        }
+        
+        public void setLevel(Level _level)
+        {
+            level = _level;
+        }
     
 }

@@ -12,11 +12,9 @@ import static doolhof.Direction.Down;
 import static doolhof.Direction.Left;
 import static doolhof.Direction.Right;
 import static doolhof.Direction.Up;
-import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 /**
  *
@@ -25,15 +23,15 @@ import javax.swing.JPanel;
 public class Speler extends Item implements Beweeg
 {
     private Bazooka bazooka;
-    protected SpelerKey keys;
+    private GameKey keys;
     private Direction direction;
     private int stappen;
     
 
     public Speler()
     {
-        keys = new SpelerKey();
-        image = new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage();
+        keys = new GameKey();
+        setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage());
         direction = Down;
         stappen =0;
     }
@@ -41,7 +39,7 @@ public class Speler extends Item implements Beweeg
      @Override
      public void paintComponent(Graphics g) 
         {
-            setBounds(huidigeVeld.x * boxSize, huidigeVeld.y * boxSize, boxSize, boxSize);
+            setBounds(getVeld().getX() * getBoxsize(), getVeld().getY() * getBoxsize(), getBoxsize(), getBoxsize());
             int rotation =0;
             super.paintComponent(g);
             int translateX =0;
@@ -50,20 +48,20 @@ public class Speler extends Item implements Beweeg
              if(direction == Up)
              {
                 rotation = 180;
-                translateX =boxSize;
-                translateY =boxSize;
+                translateX =getBoxsize();
+                translateY =getBoxsize();
              }
                if(direction == Left)
              {
                 rotation = 90;
-                translateX =boxSize;
+                translateX =getBoxsize();
                 translateY =0;
              }
               if(direction == Right)
              {
                  rotation = 270;
                 translateX =0;
-                translateY =boxSize;
+                translateY =getBoxsize();
              }
               if(direction == Down)
              {
@@ -75,7 +73,7 @@ public class Speler extends Item implements Beweeg
             Graphics2D g2d=(Graphics2D)g; 
             g2d.translate(translateX, translateY); 
             g2d.rotate(Math.toRadians(rotation)); 
-            g2d.drawImage(image, 0, 0, boxSize, boxSize, null,this);
+            g2d.drawImage(getImage(), 0, 0, getBoxsize(), getBoxsize(), null,this);
            
         }
 
@@ -83,93 +81,104 @@ public class Speler extends Item implements Beweeg
      public void move(Direction d)
      {
         direction = d;
-        Veld veld = huidigeVeld.veldHash.get(direction);
-        if(veld.item instanceof Muur == false)
+        Veld veld = getVeld().getBuurMap().get(direction);
+        if(veld.getItem()  instanceof Muur == false)
             {
             checkItem(veld);
-            huidigeVeld =veld;
+            setVeld(veld);
             stappen++;
-            stappen();
             }
+          
      }
      
-     private void stappen()
+     public int getStappen()
      {
-//        Container panelContainer = this.getParent();
-//        Grid grid = (Grid)panelContainer;
-//        SpelStat stat = grid.getLevel().getSpelstat();
-//        stat.stappenTeller(stappen);
+         return stappen;
      }
+
      
    
       private void checkItem(Veld veld)
       {
-           if(veld.item instanceof Cheater)
+           if(veld.getItem()  instanceof Cheater)
          {
-            Cheater cheater = (Cheater) veld.item;
-            cheater.cheat();          
-            repaint();
-            veld.item.setVisible(false);
-            veld.item= null;
+            Cheater cheater = (Cheater) veld.getItem() ;
+            stappen = cheater.cheat(stappen);          
+            removeItem(veld);
          }
-            if(veld.item instanceof Vriend)
+            if(veld.getItem()  instanceof Vriend)
          {
-           Vriend vriend = (Vriend) veld.item;
-           
+           Vriend vriend = (Vriend) veld.getItem() ;
+           resetSpeler();
            vriend.volgendeLevel();
-            veld.item = null;
+           removeItem(veld);
          }
-              if(veld.item instanceof Helper)
+              if(veld.getItem()  instanceof Helper)
          {
-            Container panelContainer = this.getParent();
-            JPanel panel = (JPanel)panelContainer;
-             Helper help = (Helper) veld.item;
-             help.setVisible(false);
-             help.GetLocation(veld, panel);
-             help.roepSetPath();
-             veld.item = null;
+             Helper help = (Helper) veld.getItem() ;
+             help.GetLocation();
+             removeItem(veld);
          }
-               if(veld.item instanceof Bazooka)
+               if(veld.getItem()  instanceof Bazooka)
          {
-            bazooka = (Bazooka) veld.item;
+            bazooka = (Bazooka) veld.getItem();
             bazooka.opgepakt();
-            bazooka.huidigeVeld = huidigeVeld;
-            image = new  ImageIcon(getClass().getClassLoader().getResource("Images/playerBazooka.png")).getImage();
+            bazooka.setVeld(getVeld());
+            setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/playerBazooka.png")).getImage());
             repaint();
-            veld.item.setVisible(false);
-            veld.item = null;
+            removeItem(veld);
          }
          if(bazooka != null)
          {
-             if(bazooka.getKogels() == 0)
+             if(bazooka.getKogels() == 3)
              {
-            image = new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage();
-            resetSpeler();
+                resetSpeler();
              }
          }
       }
+      
+     public void removeItem(Veld _veld)
+     {
+         _veld.getItem() .setVisible(false);
+         _veld.setItem(null);
+     }
      
      public void resetSpeler()
      {
         bazooka = null;
         stappen =0;
-        image = new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage();  
+        setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/player.png")).getImage()); 
      }
      
      public void schieten()
      {
          if(bazooka != null)
          {
-             if(bazooka.getKogels() == 0)
+             if(bazooka.getKogels() == 3)
              {
                  resetSpeler();
              }
              else
              {
-            bazooka.afschieten(direction, huidigeVeld);
+            bazooka.afschieten(direction, getVeld());
              }
          }
  
-     }  
+     }
+     
+     public void setSpelerKeys(GameKey _keys)
+     {
+         keys = _keys;
+     }
+     
+      public GameKey getSpelerKeys()
+     {
+         return keys;
+     }
+     
+      public Bazooka getBazooka()
+      {
+          return bazooka;
+      }
   
 }

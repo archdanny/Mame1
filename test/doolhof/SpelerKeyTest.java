@@ -46,7 +46,7 @@ public class SpelerKeyTest {
     public void testKeyTyped() {
         System.out.println("keyTyped");
         KeyEvent e = null;
-        SpelerKey instance = new SpelerKey();
+        GameKey instance = new GameKey();
         instance.keyTyped(e);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -59,7 +59,7 @@ public class SpelerKeyTest {
     public void testKeyPressed() {
         System.out.println("keyPressed");
         KeyEvent e = null;
-        SpelerKey instance = new SpelerKey();
+        GameKey instance = new GameKey();
         instance.keyPressed(e);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -72,7 +72,7 @@ public class SpelerKeyTest {
     public void testKeyReleased() {
         System.out.println("keyReleased");
         KeyEvent e = null;
-        SpelerKey instance = new SpelerKey();
+        GameKey instance = new GameKey();
         instance.keyReleased(e);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

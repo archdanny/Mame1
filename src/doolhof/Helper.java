@@ -32,7 +32,7 @@ public class Helper extends Item{
       
     public Helper(Grid gridGet)
     {
-      image = new  ImageIcon(getClass().getClassLoader().getResource("Images/helper.png")).getImage();
+        setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/helper.png")).getImage());
       task = new Task();
       timer = new Timer();
       rotation=90;
@@ -48,20 +48,20 @@ public class Helper extends Item{
             if(rotation == 180)
              {
                  
-                translateX =boxSize;
-                translateY =boxSize;
+                translateX =getBoxsize();
+                translateY =getBoxsize();
              }
                if(rotation == 90)
              {
               
-                translateX =boxSize;
+                translateX =getBoxsize();
                 translateY =0;
              }
               if(rotation == 270)
              {
              
                 translateX =0;
-                translateY =boxSize;
+                translateY =getBoxsize();
              }
               if(rotation == 0)
              {
@@ -74,7 +74,7 @@ public class Helper extends Item{
             Graphics2D g2d=(Graphics2D)g; // Create a Java2D version of g.
             g2d.translate(translateX, translateY); // Translate the center of our coordinates.
             g2d.rotate(Math.toRadians(rotation));  // Rotate the image by 1 radian.
-            g2d.drawImage(image, 0, 0, boxSize, boxSize, null,this);
+            g2d.drawImage(getImage(), 0, 0, getBoxsize(), getBoxsize(), null,this);
 
         }
      
@@ -104,10 +104,10 @@ public class Helper extends Item{
     
      }
      
-     public void GetLocation(Veld veld, JPanel panel)
+     public void GetLocation()
      {
 
-        Node  playerPos= new Node(huidigeVeld);
+        Node  playerPos= new Node(getVeld());
         Node current = null;
         Node target = null;
         Node [][] nodeList = new Node[grid.getRows()][grid.getRows()];
@@ -118,14 +118,14 @@ public class Helper extends Item{
         {
             for (int j = 0; j < grid.getRows(); j++) 
             {
-                 if(grid.gridVeld[i][j].item instanceof Vriend)
+                 if(grid.getGrid()[i][j].getItem() instanceof Vriend)
                 {
-                   target = new Node(grid.gridVeld[i][j]);
+                   target = new Node(grid.getGrid()[i][j]);
                    nodeList[i][j] = target;
                 }
                  else
                  {
-                Node node = new Node(grid.gridVeld[i][j]);
+                Node node = new Node(grid.getGrid()[i][j]);
                 nodeList[i][j] = node;
                  }
             }
@@ -144,12 +144,12 @@ public class Helper extends Item{
             }
         } 
          
-         nodeList[huidigeVeld.y][huidigeVeld.x] = playerPos;
+         nodeList[getVeld().getY()][getVeld().getX()] = playerPos;
          current = playerPos;
-         playerPos.upNode = nodeList[playerPos.veld.y -1][playerPos.veld.x];
-         playerPos.downNode = nodeList[playerPos.veld.y+1][playerPos.veld.x];
-         playerPos.leftNode = nodeList[playerPos.veld.y][playerPos.veld.x-1];
-         playerPos.rightNode = nodeList[playerPos.veld.y][playerPos.veld.x+1];
+         playerPos.upNode = nodeList[playerPos.veld.getY() -1][playerPos.veld.getX()];
+         playerPos.downNode = nodeList[playerPos.veld.getY()+1][playerPos.veld.getX()];
+         playerPos.leftNode = nodeList[playerPos.veld.getY()][playerPos.veld.getX()-1];
+         playerPos.rightNode = nodeList[playerPos.veld.getY()][playerPos.veld.getX()+1];
          playerPos.makeList();
          
          listOpen.add(current);
@@ -179,7 +179,7 @@ public class Helper extends Item{
              }
              for (Node node : current.nodeList) 
                 {
-                    if(node.veld.item instanceof Muur ==false && listClosed.contains(node) == false)
+                    if(node.veld.getItem() instanceof Muur ==false && listClosed.contains(node) == false)
              {
                  int tentative_g_score = current.getGCost(playerPos.veld) + current.verschilBuur(node.veld);
                  if(tentative_g_score <= node.getGCost(playerPos.veld) || listOpen.contains(node) == false)
@@ -195,9 +195,10 @@ public class Helper extends Item{
              }   
                 }
          }
+        roepSetPath();
      }
      
-     public void roepSetPath()
+     private void roepSetPath()
      {
          setPath(lastNode);
      }
@@ -209,10 +210,10 @@ public class Helper extends Item{
             Item cheat = new Path();
             Container panelContainer = this.getParent();
             Grid grid = (Grid)panelContainer;
-            cheat.setBounds(node.veld.x * boxSize, node.veld.y * boxSize, boxSize, boxSize);
+            cheat.setBounds(node.veld.getX() * getBoxsize(), node.veld.getY() * getBoxsize(), getBoxsize(), getBoxsize());
             grid.add(cheat);
             grid.repaint();
-            System.out.println("X :" +node.veld.x +"   Y:" + node.veld.y);
+            System.out.println("X :" +node.veld.getX() +"   Y:" + node.veld.getY());
             setPath(node.parentNode);
          }    
      }
@@ -221,14 +222,14 @@ public class Helper extends Item{
      {
          public Path()
          {
-         image = new  ImageIcon(getClass().getClassLoader().getResource("Images/path.png")).getImage();
+             setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/path.png")).getImage()) ;
          }
           @Override
      public void paintComponent(Graphics g) 
         {
             
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, boxSize, boxSize, null, this);
+            g.drawImage(getImage(), 0, 0, getBoxsize(), getBoxsize(), null, this);
 
         }
      }

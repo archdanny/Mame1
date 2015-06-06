@@ -6,7 +6,6 @@
 
 package doolhof;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -24,20 +23,19 @@ public class Vriend extends Item {
         {
             super.paintComponent(g);
              Graphics2D g2d=(Graphics2D)g; 
-           
-            g2d.drawImage(image, 0, 0, boxSize, boxSize, null,this);
+            g2d.drawImage(getImage(), 0, 0, getBoxsize(), getBoxsize(), null,this);
         }
     public Vriend()
     {
         
-        image = new  ImageIcon(getClass().getClassLoader().getResource("Images/vriend.png")).getImage();
+        setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/vriend.png")).getImage());
     }
     
     public void volgendeLevel()
     {
         Container panelContainer = this.getParent();
-            Grid grid = (Grid)panelContainer;
-            grid.getLevel().volgendeLevel();
+        Grid grid = (Grid)panelContainer;
+        grid.getLevel().volgendeLevel();
         
     }
 }

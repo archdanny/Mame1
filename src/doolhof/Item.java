@@ -17,9 +17,9 @@ import javax.swing.JComponent;
  */
 public abstract class Item extends JComponent
 {
-      protected Veld huidigeVeld;
-      protected Image image;
-      public static int boxSize;
+      private Veld huidigeVeld;
+      private Image image;
+      private static int boxSize;
       
     
     @Override
@@ -28,4 +28,33 @@ public abstract class Item extends JComponent
             super.paintComponent(g);
             
         }  
+     public void setVeld(Veld veld)
+     {
+         huidigeVeld = veld;
+     }
+     
+     public Veld getVeld()
+     {
+         return huidigeVeld;
+     }
+     
+     public static void setBoxSize(int size)
+     {
+         boxSize = size;
+     }
+     
+     public int getBoxsize()
+     {
+         return boxSize;
+     }
+     
+     public void setImage(Image _image)
+     {
+       image =  _image; 
+     }
+     
+     public Image getImage()
+     {
+         return image;
+     }
 }

@@ -21,8 +21,8 @@ public class Node {
     Node leftNode;
     Node rightNode;
      Node upNode;
-         Node downNode;
-         ArrayList<Node> nodeList;
+     Node downNode;
+     ArrayList<Node> nodeList;
          
          
          public Node(Veld _veld)
@@ -38,8 +38,8 @@ public class Node {
          {
               if(hCost == -1 )
              {
-            int curentX = Math.abs(targetVeld.x - veld.x);
-            int curentY = Math.abs(targetVeld.y - veld.y);
+            int curentX = Math.abs(targetVeld.getX() - veld.getX());
+            int curentY = Math.abs(targetVeld.getY() - veld.getY());
             return curentX + curentY;
              }
                else
@@ -52,8 +52,8 @@ public class Node {
          {
              if(gCost == -1)
              {
-            int curentX = Math.abs(StartNode.x - veld.x);
-            int curentY = Math.abs(StartNode.y - veld.y);
+            int curentX = Math.abs(StartNode.getX() - veld.getX());
+            int curentY = Math.abs(StartNode.getY() - veld.getY());
             return curentX + curentY;
              }
              else
@@ -75,8 +75,8 @@ public class Node {
            
             public int verschilBuur(Veld buur)
          {
-            int curentX = Math.abs(buur.x - veld.x);
-            int curentY = Math.abs(buur.y - veld.y);
+            int curentX = Math.abs(buur.getX() - veld.getX());
+            int curentY = Math.abs(buur.getY() - veld.getY());
             return curentX + curentY;
          }
             

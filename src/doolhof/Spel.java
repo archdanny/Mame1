@@ -26,7 +26,7 @@ public class Spel extends JFrame
 {
     private final int frameHoogte = 600;
     private final int frameBreedte = 670;
-    public Level level;
+    private Level level;
     
     public Spel()
     {

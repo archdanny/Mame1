@@ -59,7 +59,7 @@ public class RaketTest {
     public void testFlying() {
         System.out.println("flying");
         Raket instance = null;
-        instance.flying();
+        
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

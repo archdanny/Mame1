@@ -23,8 +23,7 @@ public class SpelStat extends JPanel {
     private JLabel Klabel;
     private JButton startB;
     private JButton restartB;
-    public Level level;
-//    public Task task;
+    private Level level;
     private Timer timer;
  
    
@@ -48,7 +47,6 @@ public class SpelStat extends JPanel {
         Klabel = new JLabel("Bazooka : 0");
         add(Klabel);
         Klabel.setBounds(350, 10, 100, 30);
-        
     }
 
     public class ResetListnenr implements ActionListener {
@@ -58,35 +56,34 @@ public class SpelStat extends JPanel {
 
             startB.setEnabled(false);
             level.starten();
-            
         }
+    }
+    
+    public void setLevel(Level _level)
+    {
+        level = _level;
     }
     
     public void stappenTeller(int stappen)
     {
         String stapjes = Integer.toString(stappen);
-         label.setText(stapjes);
-         repaint();
+        label.setText(stapjes);
     }
     
     public void aantalKogels(int kogels)
     {
         Klabel.setText("Bazooka : " + Integer.toString(kogels));
     }
-    
-
+   
     public class ResetListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             startB.setEnabled(true);
             level.herstarten();
-//            timer.cancel();
             label.setText("0");
             Klabel.setText("Bazooka : 0");
             requestFocus();
-            
-
         }
     }
 

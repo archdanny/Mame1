@@ -27,15 +27,11 @@ public class Level
        levels = _levels;
        levelNum =0;
        spelstat = new SpelStat();
-       spelstat.level = this;
+       spelstat.setLevel(this);
        grid = new Grid(this);
        grid.makeGrid(levels.get(levelNum));
-       grid.makeGridVelden();
        grid.readGrid(levels.get(levelNum));
        grid.IndVeld();
-//       Task task = new Task();
-//       Timer timer = new Timer();
-//       timer.schedule(task, 0, 200);
 
     }
     
@@ -49,10 +45,10 @@ public class Level
         grid.removeAll();
         grid.resetSpeler();
         grid.makeGrid(levels.get(levelNum));
-        grid.makeGridVelden();
         grid.readGrid(levels.get(levelNum));
         grid.IndVeld();
         grid.repaint();
+
     }
     
     public SpelStat getSpelstat()
@@ -67,32 +63,10 @@ public class Level
     
     public void volgendeLevel()
     {
-        
         if(levelNum < levels.size()-1)
         {
         levelNum ++;
-       
         herstarten();
         }
-        else
-        { 
-            
-        }
     }
-//    public void spelCheck()
-//    {
-//        //grid.getSpeler().
-//    }
-//    
-//      private class Task extends TimerTask {
-//
-//
-//        @Override
-//        public void run() 
-//        {
-//           spelCheck();
-//        }
-//    
-//     }
-
 }
