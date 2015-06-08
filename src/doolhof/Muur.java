@@ -19,17 +19,17 @@ public class Muur extends Item
      
     private boolean breekbaar;
     
-    public Muur()
-    {
-        setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png")).getImage());
-      breekbaar =true;
-    }
+    
     
       public Muur(boolean d)
     {
         if(d ==true)
         {
            breekbaar = false; 
+        }
+           if(d ==false)
+        {
+           breekbaar = true; 
         }
         setImage( new  ImageIcon(getClass().getClassLoader().getResource("Images/block.png")).getImage());
     }

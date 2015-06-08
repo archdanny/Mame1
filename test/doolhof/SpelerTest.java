@@ -6,15 +6,12 @@
 
 package doolhof;
 
-import static doolhof.Direction.Down;
 import static doolhof.Direction.Up;
-import java.awt.Graphics;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static doolhof.Direction.Down;
+import static doolhof.Direction.Left;
+import static doolhof.Direction.Right;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 
 /**
  *
@@ -60,7 +57,7 @@ public class SpelerTest {
     @Test
     public void testMoveMethod() {
 
-        Direction direction = Down;
+        Direction direction = Right;
         Speler instance = new Speler();
         
         Veld veld = new Veld();
@@ -74,7 +71,7 @@ public class SpelerTest {
  
         instance.setVeld(veld);
         instance.move(direction);
-        assertEquals(instance.getVeld(), Zuid);
+        assertEquals(instance.getVeld(), Oost);
     }
     
     
@@ -95,7 +92,7 @@ public class SpelerTest {
  
         instance.setVeld(veld);
         instance.move(direction);
-        assertEquals(veld.getItem(), instance);
+        assertEquals(veld.getItem(), null);
     }
     
       @Test
@@ -107,7 +104,7 @@ public class SpelerTest {
         Veld veld = new Veld();
         
         Veld Noord = new Veld();
-        Muur muur = new Muur();
+        Muur muur = new Muur(false);
         Noord.setItem(muur);
         Veld Zuid = new Veld();
         Veld West = new Veld();
@@ -117,7 +114,7 @@ public class SpelerTest {
  
         instance.setVeld(veld);
         instance.move(direction);
-        assertEquals(instance.getVeld(), Noord);
+        assertEquals(instance.getVeld(), veld);
         
     }
     

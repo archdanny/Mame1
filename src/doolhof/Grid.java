@@ -163,7 +163,7 @@ public class Grid extends JPanel
                  
                 if(mapArray[i].substring(j, j+1).equals("w"))
                 {
-                    Item muur = new Muur();
+                    Item muur = new Muur(false);
                     gridVeld[i][j].setItem(muur);
                     muur.setBounds(Xposition, Yposition, boxSize, boxSize);
                     add(muur);

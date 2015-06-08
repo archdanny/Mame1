@@ -46,7 +46,7 @@ public class MuurTest {
     public void testPaintComponent() {
         System.out.println("paintComponent");
         Graphics g = null;
-        Muur instance = new Muur();
+        Muur instance = new Muur(false);
         instance.paintComponent(g);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -59,7 +59,7 @@ public class MuurTest {
     public void testDestroy() {
         System.out.println("destroy");
         Item item = null;
-        Muur instance = new Muur();
+        Muur instance = new Muur(false);
         instance.destroy(item);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -71,7 +71,7 @@ public class MuurTest {
     @Test
     public void testGetBreekbaar() {
         System.out.println("getBreekbaar");
-        Muur instance = new Muur();
+        Muur instance = new Muur(false);
         boolean expResult = false;
         boolean result = instance.getBreekbaar();
         assertEquals(expResult, result);

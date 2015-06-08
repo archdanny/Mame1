@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
  *
  * @author Danny
  */
-public class Speler extends Item implements Beweeg
+public class Speler extends Item 
 {
     private Bazooka bazooka;
     private GameKey keys;
@@ -77,7 +77,7 @@ public class Speler extends Item implements Beweeg
            
         }
 
-    @Override
+    
      public void move(Direction d)
      {
         direction = d;

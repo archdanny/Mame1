@@ -213,7 +213,6 @@ public class Helper extends Item{
             cheat.setBounds(node.getVeld().getX() * getBoxsize(), node.getVeld().getY() * getBoxsize(), getBoxsize(), getBoxsize());
             grid.add(cheat);
             grid.repaint();
-            System.out.println("X :" +node.getVeld().getX() +"   Y:" + node.getVeld().getY());
             setPath(node.getParentNode());
          }    
      }
