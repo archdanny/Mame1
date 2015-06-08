@@ -43,7 +43,7 @@ public abstract class Item extends JComponent
          boxSize = size;
      }
      
-     public int getBoxsize()
+     public static int getBoxsize()
      {
          return boxSize;
      }
