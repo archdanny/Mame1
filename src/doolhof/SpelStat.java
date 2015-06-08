@@ -64,6 +64,12 @@ public class SpelStat extends JPanel {
         bazookaLabel.setText("Bazooka : " + Integer.toString(kogels));
     }
    
+     public void resetStat()
+     {
+         bazookaLabel.setText("Bazooka : 0");
+     }
+    
+    
     public class ResetListener implements ActionListener {
 
         @Override

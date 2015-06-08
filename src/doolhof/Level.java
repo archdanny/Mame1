@@ -48,6 +48,7 @@ public class Level
         grid.readGrid(levels.get(levelNum));
         grid.IndVeld();
         grid.repaint();
+        spelstat.resetStat();
 
     }
     

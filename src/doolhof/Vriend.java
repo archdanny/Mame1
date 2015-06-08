@@ -36,6 +36,5 @@ public class Vriend extends Item {
         Container panelContainer = this.getParent();
         Grid grid = (Grid)panelContainer;
         grid.getLevel().volgendeLevel();
-        
     }
 }
