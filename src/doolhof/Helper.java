@@ -136,32 +136,32 @@ public class Helper extends Item{
         {
             for (int j = 1; j < grid.getRows() -1; j++) 
             { 
-                nodeList[i][j].upNode = nodeList[i-1][j];
-                nodeList[i][j].downNode = nodeList[i+1][j];
-                nodeList[i][j].leftNode = nodeList[i][j-1];
-                nodeList[i][j].rightNode = nodeList[i][j+1];
+                nodeList[i][j].setUpNode(nodeList[i-1][j]);
+                nodeList[i][j].setDownNode(nodeList[i+1][j]);
+                nodeList[i][j].setLeftNode(nodeList[i][j-1]);
+                nodeList[i][j].setRightNode(nodeList[i][j+1]);
                 nodeList[i][j].makeList();
             }
         } 
          
          nodeList[getVeld().getY()][getVeld().getX()] = playerPos;
          current = playerPos;
-         playerPos.upNode = nodeList[playerPos.veld.getY() -1][playerPos.veld.getX()];
-         playerPos.downNode = nodeList[playerPos.veld.getY()+1][playerPos.veld.getX()];
-         playerPos.leftNode = nodeList[playerPos.veld.getY()][playerPos.veld.getX()-1];
-         playerPos.rightNode = nodeList[playerPos.veld.getY()][playerPos.veld.getX()+1];
+         playerPos.setUpNode(nodeList[playerPos.getVeld().getY() -1][playerPos.getVeld().getX()]);
+         playerPos.setDownNode(nodeList[playerPos.getVeld().getY()+1][playerPos.getVeld().getX()]);
+         playerPos.setLeftNode(nodeList[playerPos.getVeld().getY()][playerPos.getVeld().getX()-1]);
+         playerPos.setRightNode(nodeList[playerPos.getVeld().getY()][playerPos.getVeld().getX()+1]);
          playerPos.makeList();
          
          listOpen.add(current);
-         current.fCost = current.getFCost(playerPos.veld, target.veld);
+         current.setfCost(current.getFCost(playerPos.getVeld(), target.getVeld()));
          
             while(!listOpen.isEmpty()) {
                 Node kleinste = listOpen.get(0);
                 current = listOpen.get(0);
              for (int k = 0; k < listOpen.size(); k++) 
              {
-                 int a = listOpen.get(k).getFCost(playerPos.veld,target.veld);
-                 int b = kleinste.getFCost(playerPos.veld,target.veld);
+                 int a = listOpen.get(k).getFCost(playerPos.getVeld(), target.getVeld());
+                 int b = kleinste.getFCost(playerPos.getVeld(), target.getVeld());
              if(a<= b)
              {
                  kleinste = listOpen.get(k);
@@ -171,22 +171,22 @@ public class Helper extends Item{
              listClosed.add(current);
              listOpen.remove(current);
              
-             if(current.veld == target.veld)
+             if(current.getVeld() == target.getVeld())
              {
                  lastNode = current;
                  break;
                  
              }
-             for (Node node : current.nodeList) 
+             for (Node node : current.getNodeList()) 
                 {
-                    if(node.veld.getItem() instanceof Muur ==false && listClosed.contains(node) == false)
+                    if(node.getVeld().getItem() instanceof Muur ==false && listClosed.contains(node) == false)
              {
-                 int tentative_g_score = current.getGCost(playerPos.veld) + current.verschilBuur(node.veld);
-                 if(tentative_g_score <= node.getGCost(playerPos.veld) || listOpen.contains(node) == false)
+                 int tentative_g_score = current.getGCost(playerPos.getVeld()) + current.verschilBuur(node.getVeld());
+                 if(tentative_g_score <= node.getGCost(playerPos.getVeld()) || listOpen.contains(node) == false)
                  {
-                     node.parentNode = current;
-                     node.gCost = tentative_g_score;
-                     node.fCost = node.getGCost(playerPos.veld) + node.getHCost(target.veld);
+                     node.setParentNode(current);
+                     node.setgCost(tentative_g_score);
+                     node.setfCost(node.getGCost(playerPos.getVeld()) + node.getHCost(target.getVeld()));
                      if(listOpen.contains(node) == false)
                      {
                          listOpen.add(node);                                               
@@ -205,16 +205,16 @@ public class Helper extends Item{
      
      private void setPath(Node node)
      {
-         if(node.parentNode != null)
+         if(node.getParentNode() != null)
          {
             Item cheat = new Path();
             Container panelContainer = this.getParent();
             Grid grid = (Grid)panelContainer;
-            cheat.setBounds(node.veld.getX() * getBoxsize(), node.veld.getY() * getBoxsize(), getBoxsize(), getBoxsize());
+            cheat.setBounds(node.getVeld().getX() * getBoxsize(), node.getVeld().getY() * getBoxsize(), getBoxsize(), getBoxsize());
             grid.add(cheat);
             grid.repaint();
-            System.out.println("X :" +node.veld.getX() +"   Y:" + node.veld.getY());
-            setPath(node.parentNode);
+            System.out.println("X :" +node.getVeld().getX() +"   Y:" + node.getVeld().getY());
+            setPath(node.getParentNode());
          }    
      }
      
