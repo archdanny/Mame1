@@ -30,11 +30,13 @@ public class Vriend extends Item {
         
         setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/vriend.png")).getImage());
     }
-    
-    public void volgendeLevel()
+
+    @Override
+    public void functie()
     {
+        this.destroy();
         Container panelContainer = this.getParent();
         Grid grid = (Grid)panelContainer;
-        grid.getLevel().volgendeLevel();
+        grid.getLevel().volgendeLevel(); 
     }
 }

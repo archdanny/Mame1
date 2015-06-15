@@ -40,6 +40,11 @@ public class Helper extends Item{
       grid = gridGet;
     }
     
+    public Helper()
+    {
+        
+    }
+    
      @Override
      public void paintComponent(Graphics g) 
         {
@@ -104,7 +109,8 @@ public class Helper extends Item{
     
      }
      
-     public void GetLocation()
+    @Override
+     public void functie()
      {
 
         Node  playerPos= new Node(getVeld());
@@ -155,48 +161,50 @@ public class Helper extends Item{
          listOpen.add(current);
          current.setfCost(current.getFCost(playerPos.getVeld(), target.getVeld()));
          
-            while(!listOpen.isEmpty()) {
-                Node kleinste = listOpen.get(0);
-                current = listOpen.get(0);
-             for (int k = 0; k < listOpen.size(); k++) 
-             {
-                 int a = listOpen.get(k).getFCost(playerPos.getVeld(), target.getVeld());
-                 int b = kleinste.getFCost(playerPos.getVeld(), target.getVeld());
-             if(a<= b)
-             {
-                 kleinste = listOpen.get(k);
-                 current = listOpen.get(k);
-             }
-             }
-             listClosed.add(current);
-             listOpen.remove(current);
-             
-             if(current.getVeld() == target.getVeld())
-             {
-                 lastNode = current;
-                 break;
-                 
-             }
-             for (Node node : current.getNodeList()) 
-                {
-                    if(node.getVeld().getItem() instanceof Muur ==false && listClosed.contains(node) == false)
-             {
-                 int tentative_g_score = current.getGCost(playerPos.getVeld()) + current.verschilBuur(node.getVeld());
-                 if(tentative_g_score <= node.getGCost(playerPos.getVeld()) || listOpen.contains(node) == false)
-                 {
-                     node.setParentNode(current);
-                     node.setgCost(tentative_g_score);
-                     node.setfCost(node.getGCost(playerPos.getVeld()) + node.getHCost(target.getVeld()));
-                     if(listOpen.contains(node) == false)
-                     {
-                         listOpen.add(node);                                               
-                     }
-                 }
-             }   
+        while (!listOpen.isEmpty()) 
+        {
+            Node kleinste = listOpen.get(0);
+            current = listOpen.get(0);
+            for (int k = 0; k < listOpen.size(); k++) 
+            {
+                int a = listOpen.get(k).getFCost(playerPos.getVeld(), target.getVeld());
+                int b = kleinste.getFCost(playerPos.getVeld(), target.getVeld());
+                if (a <= b) {
+                    kleinste = listOpen.get(k);
+                    current = listOpen.get(k);
                 }
-         }
+            }
+            listClosed.add(current);
+            listOpen.remove(current);
+
+            if (current.getVeld() == target.getVeld()) 
+            {
+                lastNode = current;
+                break;
+
+            }
+            for (Node node : current.getNodeList()) 
+            {
+                if (node.getVeld().getItem() instanceof Muur == false && listClosed.contains(node) == false) 
+                {
+                    int tentative_g_score = current.getGCost(playerPos.getVeld()) + current.verschilBuur(node.getVeld());
+                    if (tentative_g_score <= node.getGCost(playerPos.getVeld()) || listOpen.contains(node) == false) 
+                    {
+                        node.setParentNode(current);
+                        node.setgCost(tentative_g_score);
+                        node.setfCost(node.getGCost(playerPos.getVeld()) + node.getHCost(target.getVeld()));
+                        if (listOpen.contains(node) == false) 
+                        {
+                            listOpen.add(node);
+                        }
+                    }
+                }
+            }
+        }
+        this.destroy();
         roepSetPath();
-     }
+
+    }
      
      private void roepSetPath()
      {

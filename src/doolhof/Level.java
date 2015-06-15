@@ -8,8 +8,7 @@ package doolhof;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 /**
  *
@@ -29,9 +28,11 @@ public class Level
        spelstat = new SpelStat();
        spelstat.setLevel(this);
        grid = new Grid(this);
+ 
        grid.makeGrid(levels.get(levelNum));
-       grid.readGrid(levels.get(levelNum));
-       grid.IndVeld();
+       grid.generateGrid(60);
+       //grid.readGrid(levels.get(levelNum));
+
 
     }
     
@@ -46,7 +47,6 @@ public class Level
         grid.resetSpeler();
         grid.makeGrid(levels.get(levelNum));
         grid.readGrid(levels.get(levelNum));
-        grid.IndVeld();
         grid.repaint();
         spelstat.resetStat();
 

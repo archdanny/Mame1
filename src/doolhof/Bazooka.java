@@ -35,21 +35,28 @@ public class Bazooka extends Item{
             g.drawImage(getImage(), 0, 0, getBoxsize(), getBoxsize(), null, this);
         }
      
-     public void afschieten(Direction d, Veld veld)
+     public boolean afschieten(Direction d, Veld veld)
      {
-
+         boolean check = false;
+         
+          if(kogels ==2)
+         {
+             check = true;
+         }
          if(kogels <3)
          {
          raketArray.get(kogels).flying(d, veld);
-         kogels ++;
+         kogels++;
          printKogels--;
          }
+        return check;
      }
      
      public void opgepakt()
      {
          kogels =0;
          printKogels= 3;
+         this.destroy();
      }
      
      public int getKogels()

@@ -33,6 +33,12 @@ public class Veld
     public void setItem(Item _item)
     {
        item = _item; 
+       item.setVeld(this);
+    }
+    
+    public void setLeeg()
+    {
+         item = null; 
     }
     
     public Item getItem()

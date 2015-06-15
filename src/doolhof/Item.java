@@ -57,4 +57,16 @@ public abstract class Item extends JComponent
      {
          return image;
      }
+     
+     public void functie()
+     {
+         
+     }
+     
+      public void destroy()
+     {
+        this.setVisible(false);
+        this.huidigeVeld.setLeeg();
+     }
+     
 }

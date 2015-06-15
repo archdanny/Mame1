@@ -60,14 +60,7 @@ public class GameKey implements KeyListener {
             {
                 speler.schieten();
             }
-           speler.repaint();
-           level.getSpelstat().stappenTeller(speler.getStappen());
-           if (speler.getBazooka() != null)
-           {
-           level.getSpelstat().aantalKogels(speler.getBazooka().getPrintKogels());
-           }
-           level.getSpelstat().repaint();
-           
+           refresh();
         }
 
         @Override
@@ -87,6 +80,22 @@ public class GameKey implements KeyListener {
         public void setLevel(Level _level)
         {
             level = _level;
+        }
+        
+        public void refresh()
+        {
+           speler.repaint();
+           level.getSpelstat().stappenTeller(speler.getStappen());
+           if (speler.getBazooka() != null)
+           {
+           level.getSpelstat().aantalKogels(speler.getBazooka().getPrintKogels());
+           }
+           else
+           {
+               level.getSpelstat().aantalKogels(0);
+           }
+           level.getSpelstat().repaint();
+           
         }
     
 }

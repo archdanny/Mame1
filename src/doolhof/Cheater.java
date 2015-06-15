@@ -6,7 +6,7 @@ package doolhof;
 
 
 
-import java.awt.Container;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
@@ -18,7 +18,6 @@ import javax.swing.ImageIcon;
  */
 public class Cheater extends Item {
    
-//     public Task task;
     private final int stappenMin = 20;
     
     public Cheater()
@@ -27,7 +26,8 @@ public class Cheater extends Item {
     }
     public int cheat(int stappen)
     {
-         return stappen + stappenMin;
+        this.destroy();
+        return stappen + stappenMin;
     }
     
     @Override

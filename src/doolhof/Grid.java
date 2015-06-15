@@ -39,6 +39,8 @@ public class Grid extends JPanel
             setFocusable(true);
             requestFocus();
             requestFocusInWindow(true);
+            setSize(frameHoogte, frameBreedte);
+            setLayout(null);
 
     }
     public void resetSpeler()
@@ -75,8 +77,7 @@ public class Grid extends JPanel
     public void makeGrid(File file)
     {
         add(speler);
-        setSize(frameHoogte, frameBreedte);
-        setLayout(null);
+        
            String  length = new String();
             FileInputStream fis;
              try {
@@ -92,16 +93,16 @@ public class Grid extends JPanel
     {
         System.out.println(e);
     }
-             makeGridVelden();
+             makeGridVelden(rows);
     }
     
-        public void makeGridVelden()
+        public void makeGridVelden(int _rows)
     {
-         gridVeld = new Veld[rows][rows];
+         gridVeld = new Veld[_rows][_rows];
         
-        for (int i = 0; i < rows; i++) 
+        for (int i = 0; i < _rows; i++) 
         {
-            for (int j = 0; j < rows; j++) 
+            for (int j = 0; j < _rows; j++) 
             {
                 Veld veld = new Veld();
                 veld.setX(j);
@@ -112,12 +113,12 @@ public class Grid extends JPanel
         
     }
         
-        public void IndVeld()
+        public void IndVeld(int _rows)
         {
              
-        for (int i = 1; i < rows -1; i++) 
+        for (int i = 1; i < _rows -1; i++) 
         {
-            for (int j = 1; j < rows -1; j++) 
+            for (int j = 1; j < _rows -1; j++) 
             { 
             gridVeld[i][j].fillBuurMap(gridVeld[i-1][j],gridVeld[i+1][j],gridVeld[i][j-1],gridVeld[i][j+1]);
             }
@@ -154,7 +155,6 @@ public class Grid extends JPanel
                  if(mapArray[i].substring(j, j+1).equals("b"))
                 {
                     Item b = new Muur(true);
-                    b.setVeld(gridVeld[i][j]);
                     gridVeld[i][j].setItem(b);
                     b.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
                     add(b);
@@ -171,9 +171,7 @@ public class Grid extends JPanel
                  if(mapArray[i].substring(j, j+1).equals("h"))
                 {
                     Item help = new Helper(this);
-                    
                     gridVeld[i][j].setItem(help);
-                    help.setVeld(gridVeld[i][j]);
                     help.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
                     add(help);
                 }
@@ -181,7 +179,6 @@ public class Grid extends JPanel
                 {
                     Item vriend = new Vriend();
                     gridVeld[i][j].setItem(vriend);
-
                     vriend.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
                     add(vriend);
                 }
@@ -200,31 +197,110 @@ public class Grid extends JPanel
                 }
                  if(mapArray[i].substring(j, j+1).equals("g"))
                 {
-                    gridVeld[i][j].setItem(null);
+                    gridVeld[i][j].setLeeg();
                 }
                   if(mapArray[i].substring(j, j+1).equals("c"))
                 {
                     Cheater cheater = new Cheater();
-                   
                     gridVeld[i][j].setItem(cheater);
                     add(cheater);
                     cheater.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
-                   
-
                 }
                  if(mapArray[i].substring(j, j+1).equals("s"))
                  {
                     gridVeld[i][j].setItem(speler);
                     speler.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
-                    speler.setVeld(gridVeld[i][j]);
                  }
-
                 Xposition = Xposition+Item.getBoxsize();
             }
             Yposition = Yposition +Item.getBoxsize();
             Xposition = 0;
        }
+        IndVeld(rows);
+    }
+        
+       public void generateGrid(int _size) 
+       {
+        makeGridVelden(_size);
+        MazeGen a = new MazeGen(_size);
+        a.NodesGen();
+        a.vulMuur();
+        rows = _size;
+
+        Node[][] list;
+        list = a.makeNodeGrid();
  
+        int Xposition = 0;
+        int Yposition = 0;
+        
+        int size = frameHoogte/_size;
+        Item.setBoxSize(size);
+
+        for (int i = 0; i < _size; i++) 
+        {
+            for (int j = 0; j < _size; j++) 
+            {
+                if(list[i][j].getVeld().getItem() instanceof Muur)
+                {
+                    Muur checkMuur = (Muur) list[i][j].getVeld().getItem();
+                    if(checkMuur.getBreekbaar() == true)
+                    {
+                    Item muurBreek = new Muur(false);
+                    gridVeld[i][j].setItem(muurBreek);
+                    muurBreek.setBounds(Xposition, Yposition, size, size);
+                    add(muurBreek);
+                    }
+                    else
+                    {
+                    Item muur = new Muur(true);
+                    gridVeld[i][j].setItem(muur);
+                    muur.setBounds(Xposition, Yposition, size, size);
+                    add(muur); 
+                    }
+                }
+               
+                 if(list[i][j].getVeld().getItem() instanceof Bazooka)
+                {
+                    Bazooka bazooka = new Bazooka();
+                    for (int k = 0; k < 3; k++) {
+                        Raket raket = new Raket();
+                        add(raket);
+                        bazooka.setRakets().add(raket);
+                    }
+                    Item bazookaI = (Item) bazooka;
+                    gridVeld[i][j].setItem(bazookaI);
+                    bazookaI.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
+                    add(bazookaI);
+                }
+                 
+                 if(list[i][j].getVeld().getItem() instanceof Helper)
+                {
+                    Item help = new Helper(this);
+                    gridVeld[i][j].setItem(help);
+                    help.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
+                    add(help);
+                }
+                 
+                   if(list[i][j].getVeld().getItem() instanceof Vriend)
+                {
+                    Item vriend = new Vriend();
+                    gridVeld[i][j].setItem(vriend);
+                    vriend.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
+                    add(vriend);
+                }
+                    if(list[i][j].getVeld().getItem() instanceof Speler)
+                {
+                    gridVeld[i][j].setItem(speler);
+                    speler.setBounds(Xposition, Yposition, size, size);
+                }
+                
+                Xposition = Xposition + size;
+            }
+            Yposition = Yposition + size;
+            Xposition = 0;
+        }
+        IndVeld(_size);
+         
     }
   
 }

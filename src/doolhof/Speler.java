@@ -69,12 +69,10 @@ public class Speler extends Item
                 translateX =0;
                 translateY =0;
              }
-             
             Graphics2D g2d=(Graphics2D)g; 
             g2d.translate(translateX, translateY); 
             g2d.rotate(Math.toRadians(rotation)); 
             g2d.drawImage(getImage(), 0, 0, getBoxsize(), getBoxsize(), null,this);
-           
         }
 
     
@@ -87,8 +85,7 @@ public class Speler extends Item
             checkItem(veld);
             setVeld(veld);
             stappen++;
-            }
-          
+            }  
      }
      
      public int getStappen()
@@ -96,53 +93,28 @@ public class Speler extends Item
          return stappen;
      }
 
-     
-   
-      private void checkItem(Veld veld)
-      {
-           if(veld.getItem()  instanceof Cheater)
-         {
-            Cheater cheater = (Cheater) veld.getItem() ;
-            stappen = cheater.cheat(stappen);          
-            removeItem(veld);
-         }
-            if(veld.getItem()  instanceof Vriend)
-         {
-           Vriend vriend = (Vriend) veld.getItem() ;
-           resetSpeler();
-           vriend.volgendeLevel();
-           removeItem(veld);
-         }
-              if(veld.getItem()  instanceof Helper)
-         {
-             Helper help = (Helper) veld.getItem() ;
-             help.GetLocation();
-             removeItem(veld);
-         }
-               if(veld.getItem()  instanceof Bazooka)
-         {
-            bazooka = (Bazooka) veld.getItem();
-            bazooka.opgepakt();
-            bazooka.setVeld(getVeld());
-            setImage(new  ImageIcon(getClass().getClassLoader().getResource("Images/playerBazooka.png")).getImage());
-            repaint();
-            removeItem(veld);
-         }
-         if(bazooka != null)
-         {
-             if(bazooka.getKogels() == 3)
-             {
-                resetSpeler();
-             }
-         }
-      }
-      
-     public void removeItem(Veld _veld)
-     {
-         _veld.getItem() .setVisible(false);
-         _veld.setItem(null);
-     }
-     
+      private void checkItem(Veld veld) {
+
+        if (veld.getItem() != null) 
+        {
+            if (veld.getItem() instanceof Cheater) 
+            {
+                Cheater cheater = (Cheater) veld.getItem();
+                stappen = cheater.cheat(stappen);
+            } 
+            else if (veld.getItem() instanceof Bazooka) 
+            {
+                bazooka = (Bazooka) veld.getItem();
+                bazooka.opgepakt();
+                setImage(new ImageIcon(getClass().getClassLoader().getResource("Images/playerBazooka.png")).getImage());
+            } 
+            else 
+            {
+                veld.getItem().functie();
+            }
+        }
+    }
+  
      public void resetSpeler()
      {
         bazooka = null;
@@ -156,29 +128,30 @@ public class Speler extends Item
          {
              if(bazooka.getKogels() == 3)
              {
-                 resetSpeler();
+                resetSpeler();
              }
              else
              {
-            bazooka.afschieten(direction, getVeld());
+                if(bazooka.afschieten(direction, getVeld()))
+                {
+                    resetSpeler();
+                }
              }
          }
- 
      }
-     
-     public void setSpelerKeys(GameKey _keys)
-     {
-         keys = _keys;
-     }
-     
-      public GameKey getSpelerKeys()
-     {
-         return keys;
-     }
-     
-      public Bazooka getBazooka()
-      {
-          return bazooka;
-      }
-  
+
+    public void setSpelerKeys(GameKey _keys) 
+    {
+        keys = _keys;
+    }
+
+    public GameKey getSpelerKeys() 
+    {
+        return keys;
+    }
+
+    public Bazooka getBazooka() 
+    {
+        return bazooka;
+    }
 }

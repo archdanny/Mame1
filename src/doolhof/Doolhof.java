@@ -20,6 +20,8 @@ public class Doolhof {
         Spel spel = new Spel();
         spel.makeComponents();
         spel.setVisible(true);    
+        
+       
     }
     
 }

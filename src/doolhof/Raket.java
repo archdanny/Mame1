@@ -23,7 +23,6 @@ import javax.swing.ImageIcon;
  */
 public class Raket extends Item {
 
-    private Veld veldCheck;
     private Direction direction;
     private TimerTask task;
     private  Timer timer;
@@ -73,38 +72,30 @@ public class Raket extends Item {
             
       
         }
-     
-     
+
+    public void flying(Direction d,Veld veld)
+    {
+        setVeld(veld);
+        direction =d;
+        task = new Task();
+        timer = new Timer();
+        timer.schedule(task, 0, 50);
+    }
+    
+         
      private Veld getVeldDirection()
      {
             Veld veld;
             veld = getVeld().getBuurMap().get(direction);
             return veld;
      }
-
-    public void flying(Direction d,Veld veld)
-    {
-        
-        setVeld(veld);
-        direction =d;
-        veldCheck = getVeldDirection();
-         if(veldCheck.getItem()  instanceof Muur)
-             {
-                 DestroyVeld();
-             }
-         else
-         {  
-                task = new Task();
-                timer = new Timer();
-                timer.schedule(task, 0, 50);
-         }    
-    }
     
     public void destroyCheck()
     {
+         Veld veldCheck = getVeldDirection();
         if(veldCheck.getItem()  instanceof Muur)
         {
-            if(!DestroyVeld())
+            if(!DestroyVeld(veldCheck))
             {
             this.setVisible(false);
             timer.cancel();
@@ -114,22 +105,20 @@ public class Raket extends Item {
         {
         setBounds(getVeld().getX() * getBoxsize(), getVeld().getY() * getBoxsize() , getBoxsize(), getBoxsize());
         setVeld(getVeldDirection());
-        veldCheck = getVeldDirection();
-        //this.repaint();
         }
 
     }
 
-     public boolean DestroyVeld()
+     public boolean DestroyVeld(Veld veld)
      {
          boolean destroy = false;
-          if(veldCheck.getItem() instanceof Muur)
+         
+          if(veld.getItem() instanceof Muur)
           {
-                 Muur m = (Muur)veldCheck.getItem() ;
+                 Muur m = (Muur)veld.getItem() ;
                  if(m.getBreekbaar() == true)
                  {
-                    m.destroy(veldCheck.getItem());
-                    veldCheck.setItem(null);
+                    m.destroy();
                  }
                  else
                  {
