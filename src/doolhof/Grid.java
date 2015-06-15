@@ -222,14 +222,14 @@ public class Grid extends JPanel
        public void generateGrid(int _size) 
        {
         makeGridVelden(_size);
-        MazeGen a = new MazeGen(_size);
-        a.NodesGen();
-        a.vulMuur();
+        MazeGen maze = new MazeGen(_size);
+        maze.nodesGen();
+        maze.vulMuur();
         rows = _size;
 
         add(speler);
         Node[][] list;
-        list = a.makeNodeGrid();
+        list = maze.makeNodeGrid();
  
         int Xposition = 0;
         int Yposition = 0;

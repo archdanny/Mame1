@@ -15,22 +15,21 @@ import java.util.Random;
  */
 public class MazeGen {
 
-    private int Aantal;
+    private int aantal;
     private Node[][] nodeList;
-    private Node[][] nodeListBIg;
     private ArrayList<Node> listOpen;
     private ArrayList<Node> listClosed;
 
-    public MazeGen(int _aantal) {
-        Aantal =_aantal;
-        nodeList = new Node[Aantal][Aantal];
-        nodeListBIg = new Node[Aantal][Aantal];
+    public MazeGen(int _aantal) 
+    {
+        aantal =_aantal;
+        nodeList = new Node[aantal][aantal];
         listClosed = new ArrayList<>();
         listOpen = new ArrayList<>();
         
     }
-
-    public void NodesGen() {
+    
+    public void nodesGen() {
         try
         {
         for (int i = 0; i < getAantal(); i++) 
@@ -59,12 +58,7 @@ public class MazeGen {
                 getNodeList()[getAantal() - 2][i].setLeftNode(getNodeList()[getAantal() - 2][i - 2]);
                 getNodeList()[getAantal() - 2][i].setRightNode(getNodeList()[getAantal() - 2][i + 2]);
                 getNodeList()[getAantal() - 2][i].makeList();
-            
-//            nodeList[Aantal - 1][i].setUpNode(nodeList[Aantal - 3][i]);
-//            nodeList[Aantal - 1][i].setDownNode(null);
-//            nodeList[Aantal - 1][i].setLeftNode(nodeList[Aantal - 1][i - 2]);
-//            nodeList[Aantal - 1][i].setRightNode(nodeList[Aantal - 1][i + 2]);
-//            nodeList[Aantal - 1][i].makeList();
+
         }
         
         //Left layer velden y = 1 en right layer veld y = aantal -1
@@ -89,24 +83,12 @@ public class MazeGen {
                 getNodeList()[1][1].setRightNode(getNodeList()[1][1+2]);
                 getNodeList()[1][1].makeList();
                 
-//                nodeList[Aantal -1][1].setUpNode(nodeList[Aantal -2][1]);
-//                nodeList[Aantal -1][1].setDownNode(nodeList[Aantal +1][1]);
-//                nodeList[Aantal -1][1].setLeftNode(nodeList[Aantal -2][0]);
-//                nodeList[Aantal -1][1].setRightNode(nodeList[Aantal -2][1+2]);
-//                nodeList[Aantal -1][1].makeList();
-                
                 getNodeList()[1][getAantal() -2].setUpNode(getNodeList()[0][getAantal() -2]);
                 getNodeList()[1][getAantal() -2].setDownNode(getNodeList()[1 + 2][getAantal() -2]);
                 getNodeList()[1][getAantal() -2].setLeftNode(getNodeList()[getAantal() -2 -2][getAantal() -2]);
                 getNodeList()[1][getAantal() -2].setRightNode(getNodeList()[getAantal() -2 +1][getAantal() -2]);
                 getNodeList()[1][getAantal() -2].makeList();
                 
-//                nodeList[Aantal -2][Aantal -2].setUpNode(nodeList[Aantal -2-2][Aantal -2]);
-//                nodeList[Aantal -2][Aantal -2].setDownNode(nodeList[Aantal -2 +1][Aantal -2]);
-//                nodeList[Aantal -2][Aantal -2].setLeftNode(nodeList[Aantal -2 -2][Aantal -2]);
-//                nodeList[Aantal -2][Aantal -2].setRightNode(nodeList[Aantal -2 +1][Aantal -2]);
-//                nodeList[Aantal -2][Aantal -2].makeList();
-//        
         
         
         for (int i = 3; i < getAantal() - 2; i++) 
@@ -321,7 +303,7 @@ public class MazeGen {
     {
         
         int randomCheck =getAantal()/2;
-        int beginPunt = getAantal()- randomCheck;
+        //int beginPunt = getAantal()- randomCheck;
                 
         Random rand = new Random();
         int  randomX = rand.nextInt(randomCheck) + 1;
@@ -339,7 +321,7 @@ public class MazeGen {
     {
         
         int randomCheck =getAantal()/4;
-        int beginPunt = getAantal()- randomCheck;
+        //int beginPunt = getAantal()- randomCheck;
                 
         Random rand = new Random();
         int  randomX = getAantal()/2 + rand.nextInt(randomCheck) + 1;
@@ -353,72 +335,42 @@ public class MazeGen {
         getNodeList()[randomY][randomX].getVeld().setItem(item);
     }
 
-    /**
-     * @return the Aantal
-     */
+ 
     public int getAantal() {
-        return Aantal;
+        return aantal;
     }
 
-    /**
-     * @param Aantal the Aantal to set
-     */
+ 
     public void setAantal(int Aantal) {
-        this.Aantal = Aantal;
+        this.aantal = Aantal;
     }
 
-    /**
-     * @return the nodeList
-     */
+
     public Node[][] getNodeList() {
         return nodeList;
     }
 
-    /**
-     * @param nodeList the nodeList to set
-     */
+
     public void setNodeList(Node[][] nodeList) {
         this.nodeList = nodeList;
     }
 
-    /**
-     * @return the nodeListBIg
-     */
-    public Node[][] getNodeListBIg() {
-        return nodeListBIg;
-    }
 
-    /**
-     * @param nodeListBIg the nodeListBIg to set
-     */
-    public void setNodeListBIg(Node[][] nodeListBIg) {
-        this.nodeListBIg = nodeListBIg;
-    }
-
-    /**
-     * @return the listOpen
-     */
     public ArrayList<Node> getListOpen() {
         return listOpen;
     }
 
-    /**
-     * @param listOpen the listOpen to set
-     */
+
     public void setListOpen(ArrayList<Node> listOpen) {
         this.listOpen = listOpen;
     }
 
-    /**
-     * @return the listClosed
-     */
+   
     public ArrayList<Node> getListClosed() {
         return listClosed;
     }
 
-    /**
-     * @param listClosed the listClosed to set
-     */
+ 
     public void setListClosed(ArrayList<Node> listClosed) {
         this.listClosed = listClosed;
     }

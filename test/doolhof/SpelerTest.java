@@ -70,6 +70,7 @@ public class SpelerTest {
         instance.setVeld(veld);
         instance.move(direction);
         assertEquals(instance.getVeld(), Oost);
+       
     }
 
     @Test  // JUnit test 2

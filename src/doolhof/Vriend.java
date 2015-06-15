@@ -34,9 +34,15 @@ public class Vriend extends Item {
     @Override
     public void functie()
     {
+        try{
         this.destroy();
         Container panelContainer = this.getParent();
         Grid grid = (Grid)panelContainer;
         grid.getLevel().volgendeLevel(); 
+        }
+        catch(Exception e)
+        {
+            
+        }
     }
 }
