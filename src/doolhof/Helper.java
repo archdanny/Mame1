@@ -215,6 +215,8 @@ public class Helper extends Item{
      {
          if(node.getParentNode() != null)
          {
+             try
+             {
             Item cheat = new Path();
             Container panelContainer = this.getParent();
             Grid grid = (Grid)panelContainer;
@@ -222,6 +224,11 @@ public class Helper extends Item{
             grid.add(cheat);
             grid.repaint();
             setPath(node.getParentNode());
+             }catch(Exception e)
+             {
+                 
+             }
+             
          }    
      }
      

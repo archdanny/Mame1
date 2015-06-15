@@ -41,13 +41,22 @@ public class Level
     
     public void herstarten()
     {
+        if(levelNum < levels.size())
+        {
         grid.removeAll();
         grid.resetSpeler();
         grid.makeGrid(levels.get(levelNum));
         grid.readGrid(levels.get(levelNum));
         grid.repaint();
         spelstat.resetStat();
-
+        }
+        else 
+        {
+            grid.removeAll();
+            grid.resetSpeler();
+            grid.generateGrid(60);
+            grid.repaint();
+        }
     }
     
     public SpelStat getSpelstat()
@@ -71,8 +80,9 @@ public class Level
         {
             grid.removeAll();
             grid.resetSpeler();
-            grid.makeGrid(levels.get(levelNum));
             grid.generateGrid(60);
+            grid.repaint();
+            levelNum ++;
         }
     }
     

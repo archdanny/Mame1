@@ -227,6 +227,7 @@ public class Grid extends JPanel
         a.vulMuur();
         rows = _size;
 
+        add(speler);
         Node[][] list;
         list = a.makeNodeGrid();
  
@@ -287,6 +288,13 @@ public class Grid extends JPanel
                     gridVeld[i][j].setItem(vriend);
                     vriend.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
                     add(vriend);
+                }
+                     if(list[i][j].getVeld().getItem() instanceof Cheater)
+                {
+                    Cheater cheater = new Cheater();
+                    gridVeld[i][j].setItem(cheater);
+                    add(cheater);
+                    cheater.setBounds(Xposition, Yposition, Item.getBoxsize(), Item.getBoxsize());
                 }
                     if(list[i][j].getVeld().getItem() instanceof Speler)
                 {
