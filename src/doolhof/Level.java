@@ -28,10 +28,8 @@ public class Level
        spelstat = new SpelStat();
        spelstat.setLevel(this);
        grid = new Grid(this);
- 
        grid.makeGrid(levels.get(levelNum));
-       grid.generateGrid(60);
-       //grid.readGrid(levels.get(levelNum));
+       grid.readGrid(levels.get(levelNum));
 
 
     }
@@ -69,5 +67,13 @@ public class Level
         levelNum ++;
         herstarten();
         }
+        else //(levelNum > levels.size()-1)
+        {
+            grid.removeAll();
+            grid.resetSpeler();
+            grid.makeGrid(levels.get(levelNum));
+            grid.generateGrid(60);
+        }
     }
+    
 }
